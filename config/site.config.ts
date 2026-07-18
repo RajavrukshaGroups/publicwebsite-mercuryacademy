@@ -10,11 +10,11 @@ export const siteConfig = {
         process.env.NEXT_PUBLIC_SITE_URL ||
         "http://localhost:3000",
 
-    contact: {
-        email: "info@mercuryacademy.in",
-        phone: "+91 98765 43210",
-        whatsapp: "919876543210",
-    },
+   contact: {
+  email: "info@mercuryacademy.in",
+  phone: "+91 72041 41825",
+  whatsapp: "917204141825",
+},
 
     address: {
         city: "Bengaluru",

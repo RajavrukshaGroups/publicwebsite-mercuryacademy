@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight, Mail, Menu, Phone, X } from "lucide-react";
+import { Mail, Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Container } from "@/components/ui/container";
@@ -31,10 +31,6 @@ export default function SiteHeader() {
   };
 
   useEffect(() => {
-    closeMobileMenu();
-  }, [pathname]);
-
-  useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
 
     return () => {
@@ -44,12 +40,17 @@ export default function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-brand-border bg-white/95 backdrop-blur-xl">
-        <Container className="flex h-[78px] items-center justify-between gap-4 lg:h-[92px]">
-          <Logo priority size="md" className="max-w-[210px] sm:max-w-[245px]" />
+      <header className="sticky top-0 z-50 border-b border-[#e7e9ee] bg-white/95 backdrop-blur-xl">
+        <Container className="flex h-[76px] max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8 lg:h-[106px] lg:px-12">
+          <Logo
+            priority
+            size="lg"
+            className="max-w-[220px] sm:max-w-[260px] lg:max-w-[360px]"
+            imageClassName="lg:h-[70px]"
+          />
 
           <nav
-            className="hidden items-center gap-1 xl:flex"
+            className="hidden items-center gap-2 xl:flex"
             aria-label="Main navigation"
           >
             {mainNavigation.map((item) => {
@@ -60,7 +61,7 @@ export default function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "rounded-lg px-3 py-2 text-[15px] font-semibold transition-colors",
+                    "rounded-lg px-3 py-2 text-[14px] font-semibold transition-colors 2xl:text-[15px]",
                     active
                       ? "text-brand-gold"
                       : "text-brand-navy hover:bg-brand-gold-soft hover:text-brand-gold",
@@ -72,14 +73,14 @@ export default function SiteHeader() {
             })}
           </nav>
 
-          <div className="hidden items-center gap-4 lg:flex">
+          <div className="hidden items-center gap-5 lg:flex">
             <a
               href={phoneHref}
               className="flex items-center gap-3 text-brand-navy transition-colors hover:text-brand-gold"
             >
-              <Phone className="size-5" aria-hidden="true" />
+              <Phone className="size-5 fill-brand-navy" aria-hidden="true" />
 
-              <span className="hidden 2xl:block">
+              <span className="hidden xl:block">
                 <span className="block text-sm font-bold">
                   {siteConfig.contact.phone}
                 </span>
@@ -97,10 +98,9 @@ export default function SiteHeader() {
 
             <Link
               href="/contact"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-brand-gold-light px-5 text-sm font-bold text-brand-navy-dark shadow-brand-sm transition hover:-translate-y-0.5 hover:bg-brand-gold hover:shadow-brand-md"
+              className="inline-flex min-h-[50px] items-center justify-center rounded-md bg-brand-gold-light px-5 text-sm font-bold text-brand-navy-dark shadow-brand-sm transition hover:-translate-y-0.5 hover:bg-brand-gold hover:shadow-brand-md"
             >
               Free Counselling
-              <ChevronRight className="size-4" aria-hidden="true" />
             </Link>
           </div>
 
@@ -163,7 +163,7 @@ export default function SiteHeader() {
                     )}
                   >
                     {item.label}
-                    <ChevronRight className="size-4" aria-hidden="true" />
+                    <span aria-hidden="true">›</span>
                   </Link>
                 );
               })}
@@ -176,7 +176,7 @@ export default function SiteHeader() {
                 className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-gold-light px-5 font-bold text-brand-navy-dark"
               >
                 Get Free Counselling
-                <ChevronRight className="size-4" />
+                <span aria-hidden="true">›</span>
               </Link>
 
               <Link

@@ -4,10 +4,12 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 type LogoSize = "sm" | "md" | "lg";
+type LogoVariant = "default" | "light";
 
 interface LogoProps {
   href?: string;
   size?: LogoSize;
+  variant?: LogoVariant;
   className?: string;
   imageClassName?: string;
   priority?: boolean;
@@ -45,6 +47,7 @@ const logoUrl =
 export function Logo({
   href = "/",
   size = "md",
+  variant = "default",
   className,
   imageClassName,
   priority = false,
@@ -56,7 +59,10 @@ export function Logo({
     <Link
       href={href}
       onClick={onClick}
-      className={cn("inline-flex shrink-0 items-center", className)}
+      className={cn(
+        "inline-flex shrink-0 items-center",
+        className,
+      )}
       aria-label="Mercury Academy home"
     >
       <Image
@@ -65,7 +71,12 @@ export function Logo({
         width={styles.width}
         height={styles.height}
         priority={priority}
-        className={cn("object-contain", styles.className, imageClassName)}
+        className={cn(
+          "object-contain",
+          styles.className,
+          variant === "light" && "brightness-0 invert",
+          imageClassName,
+        )}
       />
     </Link>
   );
