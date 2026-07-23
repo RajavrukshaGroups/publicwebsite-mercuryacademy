@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Mail, Menu, Phone, X } from "lucide-react";
+import { ChevronDown, Mail, Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Container } from "@/components/ui/container";
@@ -11,9 +11,48 @@ import { siteConfig } from "@/config/site.config";
 import { mainNavigation } from "@/constants/navigation";
 import { cn } from "@/lib/utils";
 
+type UniversityMenuItem = {
+  _id: string;
+  name: string;
+  slug: string;
+  shortName?: string;
+  logoUrl?: string;
+};
+
 export default function SiteHeader() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [universitiesOpen, setUniversitiesOpen] = useState(false);
+  const [mobileUniversitiesOpen, setMobileUniversitiesOpen] = useState(false);
+  const [universities, setUniversities] = useState<UniversityMenuItem[]>([]);
+  const [universitiesLoading, setUniversitiesLoading] = useState(false);
+
+  // const universities = [
+  //   {
+  //     name: "Manipal University Jaipur",
+  //     slug: "manipal-university-jaipur",
+  //   },
+  //   {
+  //     name: "Jain University",
+  //     slug: "jain-university",
+  //   },
+  //   {
+  //     name: "Lovely Professional University",
+  //     slug: "lovely-professional-university",
+  //   },
+  //   {
+  //     name: "Amity University Online",
+  //     slug: "amity-university-online",
+  //   },
+  //   {
+  //     name: "Chandigarh University",
+  //     slug: "chandigarh-university",
+  //   },
+  //   {
+  //     name: "Sikkim Manipal University",
+  //     slug: "sikkim-manipal-university",
+  //   },
+  // ];
 
   const phoneHref = `tel:${siteConfig.contact.phone.replace(/\s+/g, "")}`;
   const emailHref = `mailto:${siteConfig.contact.email}`;
@@ -38,6 +77,65 @@ export default function SiteHeader() {
     };
   }, [mobileMenuOpen]);
 
+useEffect(() => {
+  const controller = new AbortController();
+
+  async function fetchUniversities() {
+    try {
+      setUniversitiesLoading(true);
+
+      const apiUrl =
+        process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "");
+
+      if (!apiUrl) {
+        throw new Error(
+          "NEXT_PUBLIC_API_BASE_URL is not configured.",
+        );
+      }
+
+      const response = await fetch(
+        `${apiUrl}/universities?status=PUBLISHED&limit=50`,
+        {
+          signal: controller.signal,
+          headers: {
+            Accept: "application/json",
+          },
+          cache: "no-store",
+        },
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          result?.message ||
+            `Request failed with status ${response.status}`,
+        );
+      }
+
+      setUniversities(
+        Array.isArray(result?.data) ? result.data : [],
+      );
+    } catch (error) {
+      if (
+        error instanceof Error &&
+        error.name !== "AbortError"
+      ) {
+        console.error("University menu error:", error.message);
+        setUniversities([]);
+      }
+    } finally {
+      if (!controller.signal.aborted) {
+        setUniversitiesLoading(false);
+      }
+    }
+  }
+
+  fetchUniversities();
+
+  return () => controller.abort();
+}, []);
+
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-[#e7e9ee] bg-white/95 backdrop-blur-xl">
@@ -55,6 +153,93 @@ export default function SiteHeader() {
           >
             {mainNavigation.map((item) => {
               const active = isActiveRoute(item.href);
+              const isUniversities = item.href === "/universities";
+
+              if (isUniversities) {
+                return (
+                  <div
+                    key={item.href}
+                    className="relative"
+                    onMouseEnter={() => setUniversitiesOpen(true)}
+                    onMouseLeave={() => setUniversitiesOpen(false)}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setUniversitiesOpen((current) => !current)}
+                      className={cn(
+                        "flex items-center gap-1.5 rounded-lg px-3 py-2 text-[14px] font-semibold transition-colors 2xl:text-[15px]",
+                        active
+                          ? "text-brand-gold"
+                          : "text-brand-navy hover:bg-brand-gold-soft hover:text-brand-gold",
+                      )}
+                      aria-expanded={universitiesOpen}
+                      aria-haspopup="menu"
+                    >
+                      {item.label}
+
+                      <ChevronDown
+                        className={cn(
+                          "size-4 transition-transform duration-200",
+                          universitiesOpen && "rotate-180",
+                        )}
+                        aria-hidden="true"
+                      />
+                    </button>
+
+                    {universitiesOpen && (
+                      <div className="absolute left-0 top-full z-50 pt-3">
+                        <div className="w-[330px] overflow-hidden rounded-2xl border border-brand-border bg-white p-2 shadow-2xl">
+                          <div className="border-b border-brand-border px-4 py-3">
+                            <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-gold">
+                              Explore Universities
+                            </p>
+                          </div>
+
+                          <div className="max-h-[360px] overflow-y-auto py-2">
+                            {universitiesLoading ? (
+                              <p className="px-4 py-5 text-center text-sm text-muted-foreground">
+                                Loading universities...
+                              </p>
+                            ) : universities.length > 0 ? (
+                              universities.map((university) => (
+                                <Link
+                                  key={university._id}
+                                  href={`/universities/${university.slug}`}
+                                  onClick={() => setUniversitiesOpen(false)}
+                                  className="group flex items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold-soft hover:text-brand-gold"
+                                >
+                                  <span>{university.name}</span>
+
+                                  <span
+                                    className="transition-transform group-hover:translate-x-1"
+                                    aria-hidden="true"
+                                  >
+                                    ›
+                                  </span>
+                                </Link>
+                              ))
+                            ) : (
+                              <p className="px-4 py-5 text-center text-sm text-muted-foreground">
+                                No universities available.
+                              </p>
+                            )}
+                          </div>
+
+                          <div className="border-t border-brand-border p-2">
+                            <Link
+                              href="/universities"
+                              onClick={() => setUniversitiesOpen(false)}
+                              className="flex min-h-11 items-center justify-center rounded-xl bg-brand-navy px-4 text-sm font-bold text-white transition-colors hover:bg-brand-navy-dark"
+                            >
+                              View All Universities
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              }
 
               return (
                 <Link
@@ -149,6 +334,62 @@ export default function SiteHeader() {
             >
               {mainNavigation.map((item) => {
                 const active = isActiveRoute(item.href);
+                const isUniversities = item.href === "/universities";
+
+                if (isUniversities) {
+                  return (
+                    <div key={item.href}>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setMobileUniversitiesOpen((current) => !current)
+                        }
+                        className={cn(
+                          "flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-sm font-semibold transition-colors",
+                          active
+                            ? "bg-brand-navy text-white"
+                            : "text-brand-navy hover:bg-brand-gold-soft",
+                        )}
+                        aria-expanded={mobileUniversitiesOpen}
+                      >
+                        {item.label}
+
+                        <ChevronDown
+                          className={cn(
+                            "size-4 transition-transform duration-200",
+                            mobileUniversitiesOpen && "rotate-180",
+                          )}
+                          aria-hidden="true"
+                        />
+                      </button>
+
+                      {mobileUniversitiesOpen && (
+                        <div className="ml-3 mt-1 space-y-1 border-l-2 border-brand-gold/40 pl-3">
+                          {universities.map((university) => (
+                            <Link
+                              key={university.slug}
+                              href={`/universities/${university.slug}`}
+                              onClick={closeMobileMenu}
+                              className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-brand-navy transition-colors hover:bg-brand-gold-soft hover:text-brand-gold"
+                            >
+                              {university.name}
+                              <span aria-hidden="true">›</span>
+                            </Link>
+                          ))}
+
+                          <Link
+                            href="/universities"
+                            onClick={closeMobileMenu}
+                            className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold text-brand-gold"
+                          >
+                            View All Universities
+                            <span aria-hidden="true">›</span>
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
 
                 return (
                   <Link
