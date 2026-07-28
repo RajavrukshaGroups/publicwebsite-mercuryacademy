@@ -17,6 +17,24 @@ export type NamedReference = {
   code?: string;
 };
 
+export type SeoFields = {
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string[];
+  canonical?: string;
+  robots?: string;
+
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: MediaAsset | null;
+
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: MediaAsset | null;
+
+  schemaMarkup?: string;
+};
+
 export type CourseCategory = {
   _id: string;
   name: string;
@@ -31,11 +49,14 @@ export type CourseCatalog = {
   shortName?: string;
   code: string;
   slug: string;
+
   category?: CourseCategory | null;
   level?: string;
   degreeType?: string;
+
   duration?: number;
   durationUnit?: string;
+
   overview?: string;
   icon?: MediaAsset | null;
 };
@@ -51,16 +72,51 @@ export type Specialization = {
   displayOrder?: number;
 };
 
+export type UniversityCourseSubject = {
+  _id: string;
+  name: string;
+  code?: string;
+  credits?: number;
+  description?: string;
+  displayOrder?: number;
+};
+
+export type UniversityCourseCurriculum = {
+  _id: string;
+  semesterNumber: number;
+  title?: string;
+  description?: string;
+  subjects: UniversityCourseSubject[];
+  totalSubjects?: number;
+  totalCredits?: number;
+};
+
+export type UniversityCourseFaq = {
+  _id: string;
+  question: string;
+  answer: string;
+  category?: string;
+  featured?: boolean;
+  displayOrder?: number;
+};
+
+export type UniversityCourseSummary = {
+  totalSemesters?: number;
+  totalSubjects?: number;
+  totalCredits?: number;
+  totalFaqs?: number;
+};
+
 export type UniversityCourse = {
   _id: string;
 
-  // It can be an ID in some responses or populated university data.
   university?: string | University;
 
   courseCatalog: CourseCatalog;
   specialization?: Specialization | null;
 
   slug: string;
+
   duration: number;
   durationUnit: string;
 
@@ -81,12 +137,20 @@ export type UniversityCourse = {
   brochure?: MediaAsset | null;
   thumbnail?: MediaAsset | null;
   banner?: MediaAsset | null;
+
   applicationUrl?: string;
 
   featured?: boolean;
   displayOrder?: number;
 
-  seo?: University["seo"];
+  seo?: SeoFields;
+
+  /*
+   * These optional fields support an older API response where the
+   * curriculum and FAQs were included inside the course object.
+   */
+  curriculum?: UniversityCourseCurriculum[];
+  faqs?: UniversityCourseFaq[];
 
   createdAt?: string;
   updatedAt?: string;
@@ -94,51 +158,51 @@ export type UniversityCourse = {
 
 export type University = {
   _id: string;
+
   name: string;
   shortName?: string;
   code: string;
   slug: string;
+
   establishedYear?: number;
   universityType?: string;
+
   websiteUrl?: string;
   email?: string;
   phone?: string;
+
   country?: NamedReference;
   state?: NamedReference;
   city?: NamedReference;
+
   address?: string;
+
   logo?: MediaAsset | null;
   banner?: MediaAsset | null;
   thumbnail?: MediaAsset | null;
+
   overview?: string;
   vision?: string;
   mission?: string;
+
   approvals?: NamedReference[];
+
   featured?: boolean;
   displayOrder?: number;
 
   courses?: UniversityCourse[];
   totalCourses?: number;
 
-  seo?: {
-    metaTitle?: string;
-    metaDescription?: string;
-    keywords?: string[];
-    canonical?: string;
-    robots?: string;
-    ogTitle?: string;
-    ogDescription?: string;
-    ogImage?: MediaAsset | null;
-    twitterTitle?: string;
-    twitterDescription?: string;
-    twitterImage?: MediaAsset | null;
-    schemaMarkup?: string;
-  };
+  seo?: SeoFields;
 };
 
-type UniversityListResponse = {
+export type UniversityListResponse = {
   success: boolean;
+  statusCode?: number;
+  message?: string;
+
   data: University[];
+
   meta: {
     total: number;
     page: number;
@@ -147,22 +211,33 @@ type UniversityListResponse = {
   };
 };
 
-type UniversityDetailsResponse = {
-  success: boolean;
-  data: University;
-};
-
-type UniversityCourseDetailsResponse = {
+export type UniversityDetailsResponse = {
   success: boolean;
   statusCode?: number;
   message?: string;
+  data: University;
+};
+
+export type UniversityCourseDetailsResponse = {
+  success: boolean;
+  statusCode?: number;
+  message?: string;
+
   data: {
     university: University;
     course: UniversityCourse;
+
+    /*
+     * The new public endpoint returns these fields at the top level.
+     * They remain optional so an older backend does not break the page.
+     */
+    curriculum?: UniversityCourseCurriculum[];
+    faqs?: UniversityCourseFaq[];
+    summary?: UniversityCourseSummary;
   };
 };
 
-export function getMediaUrl(media?: MediaAsset | null) {
+export function getMediaUrl(media?: MediaAsset | null): string | null {
   if (!media) return null;
 
   return typeof media === "string" ? media : media.url;
@@ -171,31 +246,40 @@ export function getMediaUrl(media?: MediaAsset | null) {
 export function getUniversities() {
   return apiRequest<UniversityListResponse>(
     "/universities?limit=100&sortBy=displayOrder&sortOrder=asc",
-    { revalidate: 900, tags: ["universities"] },
+    {
+      revalidate: 900,
+      tags: ["universities"],
+    },
   );
 }
 
-export function getUniversityBySlug(slug: string) {
+export function getUniversityBySlug(universitySlug: string) {
   return apiRequest<UniversityDetailsResponse>(
-    `/public/universities/${encodeURIComponent(slug)}`,
-    { revalidate: 900 },
-  );
-}
-
-export function getUniversityCourseBySlug(
-  universitySlug: string,
-  courseSlug: string,
-) {
-  return apiRequest<UniversityCourseDetailsResponse>(
-    `/public/universities/${encodeURIComponent(
-      universitySlug,
-    )}/courses/${encodeURIComponent(courseSlug)}`,
+    `/public/universities/${encodeURIComponent(universitySlug)}`,
     {
       revalidate: 900,
       tags: [
         "universities",
         `university-${universitySlug}`,
-        `university-course-${universitySlug}-${courseSlug}`,
+      ],
+    },
+  );
+}
+
+export function getUniversityCourseBySlug(
+  universitySlug: string,
+  universityCourseSlug: string,
+) {
+  return apiRequest<UniversityCourseDetailsResponse>(
+    `/public/universities/${encodeURIComponent(
+      universitySlug,
+    )}/courses/${encodeURIComponent(universityCourseSlug)}`,
+    {
+      revalidate: 900,
+      tags: [
+        "universities",
+        `university-${universitySlug}`,
+        `university-course-${universitySlug}-${universityCourseSlug}`,
       ],
     },
   );
