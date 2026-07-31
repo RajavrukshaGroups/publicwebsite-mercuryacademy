@@ -1,3 +1,3 @@
 export { Hero } from "./hero";
-export { HeroFeatureCard } from "./hero-feature-card";
+export { default as HeroFeatureCard } from "./hero-feature-card";
 export { HeroStats } from "./hero-stats";

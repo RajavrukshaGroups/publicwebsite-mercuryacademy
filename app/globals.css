@@ -412,3 +412,20 @@
     animation-iteration-count: 1 !important;
   }
 }
+
+.gold-glow {
+  animation: pulseGlow 6s ease-in-out infinite;
+}
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FCE09B 0%, #D9A036 50%, #B87E1B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-btn-gradient {
+  background: linear-gradient(135deg, #C5831D 0%, #EAA22E 50%, #B87612 100%);
+}
+
+.gold-btn-gradient:hover {
+  background: linear-gradient(135deg, #D9932B 0%, #F5B03C 50%, #C9831F 100%);
+}
