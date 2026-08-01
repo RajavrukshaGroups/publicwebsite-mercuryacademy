@@ -354,26 +354,30 @@ export default function UniversityClientView({
       </section>
 
       {/* 5. OUR ONLINE PROGRAMS GRID */}
-      <section id="programs" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="mb-8">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-1.5 h-6 bg-amber-500 rounded-full" />
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-serif-display">
-              Our Online Programs
-            </h2>
+      <section id="programs" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-navy-pattern">
+        <div className="mb-10 text-center">
+          <div className="inline-flex items-center justify-center gap-3 mb-4">
+            <div className="w-10 h-[2px] bg-amber-400/60" />
+            <span className="text-[11px] font-black tracking-[0.15em] text-amber-500 uppercase">
+              EXPLORE. LEARN. SUCCEED.
+            </span>
+            <div className="w-10 h-[2px] bg-amber-400/60" />
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 font-medium">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-100 font-serif-display mb-3">
+            Our Online Programs
+          </h2>
+          <p className="text-[13px] sm:text-sm text-slate-100 font-medium max-w-2xl mx-auto">
             Choose from a wide range of undergraduate and postgraduate programs
           </p>
-          <div className="flex flex-wrap gap-2 mt-6">
+          <div className="flex flex-wrap gap-3 mt-8 justify-center">
             {courseCategories.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-6 py-2 rounded-md font-bold text-xs transition-all cursor-pointer ${
+                className={`px-7 py-2.5 rounded-full font-bold text-[13px] transition-all cursor-pointer ${
                   activeTab === tab
-                    ? 'bg-[#FFB800] text-slate-950 shadow-md'
-                    : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
+                    ? 'bg-[#071938] text-amber-400 shadow-md border border-[#071938]'
+                    : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 shadow-sm'
                 }`}
               >
                 {tab === 'ALL' ? 'All Programs' : tab}
@@ -385,25 +389,26 @@ export default function UniversityClientView({
         {filteredCourses.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredCourses.map((prog: any, index: number) => {
-              const title = `${prog.courseCatalog?.shortName || prog.courseCatalog?.name} ${prog.specialization?.name ? `- ${prog.specialization.name}` : ''}`;
+              const shortName = prog.courseCatalog?.shortName || prog.courseCatalog?.name;
+              const specName = prog.specialization?.name;
               
               const cardThemes = [
-                { icon: BarChart, colorText: 'text-indigo-600', colorBg: 'bg-indigo-50', hoverBorder: 'group-hover:border-indigo-500' },
-                { icon: Megaphone, colorText: 'text-orange-500', colorBg: 'bg-orange-50', hoverBorder: 'group-hover:border-orange-500' },
-                { icon: Truck, colorText: 'text-blue-500', colorBg: 'bg-blue-50', hoverBorder: 'group-hover:border-blue-500' },
-                { icon: ShieldCheck, colorText: 'text-emerald-500', colorBg: 'bg-emerald-50', hoverBorder: 'group-hover:border-emerald-500' },
-                { icon: Smartphone, colorText: 'text-purple-500', colorBg: 'bg-purple-50', hoverBorder: 'group-hover:border-purple-500' },
-                { icon: Database, colorText: 'text-amber-500', colorBg: 'bg-amber-50', hoverBorder: 'group-hover:border-amber-500' },
-                { icon: Server, colorText: 'text-cyan-500', colorBg: 'bg-cyan-50', hoverBorder: 'group-hover:border-cyan-500' },
-                { icon: Wifi, colorText: 'text-teal-500', colorBg: 'bg-teal-50', hoverBorder: 'group-hover:border-teal-500' },
-                { icon: Gamepad2, colorText: 'text-pink-500', colorBg: 'bg-pink-50', hoverBorder: 'group-hover:border-pink-500' },
-                { icon: Star, colorText: 'text-yellow-500', colorBg: 'bg-yellow-50', hoverBorder: 'group-hover:border-yellow-500' },
-                { icon: Brain, colorText: 'text-green-500', colorBg: 'bg-green-50', hoverBorder: 'group-hover:border-green-500' },
-                { icon: Cpu, colorText: 'text-indigo-500', colorBg: 'bg-indigo-50', hoverBorder: 'group-hover:border-indigo-500' },
-                { icon: PieChart, colorText: 'text-blue-600', colorBg: 'bg-blue-50', hoverBorder: 'group-hover:border-blue-600' },
-                { icon: Layers, colorText: 'text-orange-600', colorBg: 'bg-orange-50', hoverBorder: 'group-hover:border-orange-600' },
-                { icon: Code, colorText: 'text-emerald-600', colorBg: 'bg-emerald-50', hoverBorder: 'group-hover:border-emerald-600' },
-                { icon: Package, colorText: 'text-rose-500', colorBg: 'bg-rose-50', hoverBorder: 'group-hover:border-rose-500' },
+                { icon: BarChart, colorText: 'text-indigo-600', colorBg: 'bg-indigo-50' },
+                { icon: Megaphone, colorText: 'text-orange-500', colorBg: 'bg-orange-50' },
+                { icon: Truck, colorText: 'text-blue-500', colorBg: 'bg-blue-50' },
+                { icon: ShieldCheck, colorText: 'text-emerald-500', colorBg: 'bg-emerald-50' },
+                { icon: Smartphone, colorText: 'text-purple-500', colorBg: 'bg-purple-50' },
+                { icon: Database, colorText: 'text-amber-500', colorBg: 'bg-amber-50' },
+                { icon: Server, colorText: 'text-cyan-500', colorBg: 'bg-cyan-50' },
+                { icon: Wifi, colorText: 'text-teal-500', colorBg: 'bg-teal-50' },
+                { icon: Gamepad2, colorText: 'text-pink-500', colorBg: 'bg-pink-50' },
+                { icon: Star, colorText: 'text-yellow-500', colorBg: 'bg-yellow-50' },
+                { icon: Brain, colorText: 'text-green-500', colorBg: 'bg-green-50' },
+                { icon: Cpu, colorText: 'text-indigo-500', colorBg: 'bg-indigo-50' },
+                { icon: PieChart, colorText: 'text-blue-600', colorBg: 'bg-blue-50' },
+                { icon: Layers, colorText: 'text-orange-600', colorBg: 'bg-orange-50' },
+                { icon: Code, colorText: 'text-emerald-600', colorBg: 'bg-emerald-50' },
+                { icon: Package, colorText: 'text-rose-500', colorBg: 'bg-rose-50' },
               ];
               const theme = cardThemes[index % cardThemes.length];
               const IconComponent = theme.icon;
@@ -411,26 +416,37 @@ export default function UniversityClientView({
               return (
                 <div
                   key={prog._id}
-                  className={`bg-white rounded-[20px] p-6 shadow-[0_2px_20px_rgb(0,0,0,0.04)] border border-slate-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 flex flex-col justify-between group cursor-pointer h-full border-b-[3px] border-b-transparent ${theme.hoverBorder}`}
+                  className="bg-white rounded-[20px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-slate-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col group cursor-pointer h-full relative overflow-hidden"
                 >
-                  <div>
-                    <div className="flex items-start justify-between mb-6">
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${theme.colorBg} ${theme.colorText}`}>
-                        <IconComponent className="w-5 h-5" />
+                  {/* Decorative corner slash */}
+                  <div className="absolute bottom-[42px] right-[-6px] w-8 h-8 pointer-events-none overflow-hidden">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-[1.5px] bg-amber-400/80 rotate-[-45deg]"></div>
+                  </div>
+
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between mb-5">
+                      <div className={`w-[50px] h-[50px] rounded-full flex items-center justify-center shrink-0 ${theme.colorBg} ${theme.colorText}`}>
+                        <IconComponent className="w-[22px] h-[22px]" />
                       </div>
-                      <div className="flex items-center gap-1.5 bg-white border border-slate-100 px-3 py-1.5 rounded-full shadow-sm">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                        <span className="text-[11px] font-semibold text-slate-600">
+                      <div className="flex items-center gap-1.5 pt-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_4px_rgba(16,185,129,0.4)]" />
+                        <span className="text-[11px] font-bold text-slate-600 tracking-wide">
                           {prog.studyMode || "Online"}
                         </span>
                       </div>
                     </div>
                     
                     <div className="space-y-1.5 mb-6">
-                      <h3 className="font-extrabold text-[17px] text-slate-900 leading-snug group-hover:text-blue-700 transition-colors">
-                        {title}
+                      <h3 className="font-extrabold text-[16px] text-slate-900 leading-[1.3] group-hover:text-[#071938] transition-colors">
+                        {shortName}
+                        {specName ? (
+                          <>
+                            <span className="mr-1">-</span><br />
+                            {specName}
+                          </>
+                        ) : ''}
                       </h3>
-                      <p className="text-[13px] text-slate-500 font-medium">
+                      <p className="text-[12px] text-slate-500 font-medium">
                         Duration: {prog.duration} {prog.durationUnit}
                       </p>
                     </div>
@@ -438,17 +454,17 @@ export default function UniversityClientView({
 
                   <Link
                     href={`/universities/${university.slug}/courses/${prog.slug}`}
-                    className="flex items-center text-[14px] font-bold text-blue-700 group-hover:text-blue-800 transition-colors"
+                    className="w-full bg-[#071938] text-white text-[13px] font-semibold py-2.5 px-5 rounded-[12px] flex items-center transition-colors hover:bg-[#112448] relative z-10"
                   >
                     <span>View Course</span>
-                    <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="w-4 h-4 ml-2 text-amber-400 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               );
             })}
           </div>
         ) : (
-          <div className="rounded-2xl border border-gray-200 bg-white p-8 text-gray-600">
+          <div className="rounded-2xl border border-gray-200 bg-white p-8 text-gray-600 text-center">
             No published courses are currently available.
           </div>
         )}
