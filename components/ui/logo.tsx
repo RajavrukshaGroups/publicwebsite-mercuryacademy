@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import LogoImg from "../../public/images/Logo.png"
 
 import { cn } from "@/lib/utils";
 
@@ -41,8 +42,7 @@ const logoSizes: Record<
   },
 };
 
-const logoUrl =
-  "https://res.cloudinary.com/busitmxb/image/upload/v1784022519/mercury-academy/universities/fzuuczyu72guut1pu6ev.png";
+const logoUrl = LogoImg;
 
 export function Logo({
   href = "/",
@@ -66,7 +66,7 @@ export function Logo({
       aria-label="Mercury Academy home"
     >
       <Image
-        src={logoUrl}
+        src={LogoImg}
         alt="Mercury Academy"
         width={styles.width}
         height={styles.height}

@@ -38,7 +38,7 @@ export default function RootLayout({
       className={`${inter.variable} ${playfairDisplay.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-background font-sans text-foreground antialiased">
+       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
 

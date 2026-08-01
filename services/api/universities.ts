@@ -240,7 +240,18 @@ export type UniversityCourseDetailsResponse = {
 export function getMediaUrl(media?: MediaAsset | null): string | null {
   if (!media) return null;
 
-  return typeof media === "string" ? media : media.url;
+  const url = typeof media === "string" ? media : media.url;
+  if (!url) return null;
+
+  try {
+    new URL(url);
+    return url;
+  } catch {
+    if (url.startsWith("/") || url.startsWith("data:")) {
+      return url;
+    }
+    return "/" + url;
+  }
 }
 
 export function getUniversities() {

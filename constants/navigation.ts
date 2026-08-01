@@ -3,10 +3,10 @@ export const mainNavigation = [
         label: "Universities",
         href: "/universities",
     },
-    {
-        label: "Programs",
-        href: "/courses",
-    },
+    // {
+    //     label: "Programs",
+    //     href: "/courses",
+    // },
     {
         label: "Why Mercury",
         href: "/about",
