@@ -1246,7 +1246,7 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onReadStories, onExplorePrograms }) => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-amber-50/20 to-white pt-12 pb-24 lg:pt-16 lg:pb-32"
+    <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-amber-50/20 to-white pt-12 pb-24 lg:pt-16 lg:pb-32 -mt-24.5"
     style={{backgroundImage: `url(${BackgroundBanner.src})` , backgroundPosition: "center" , backgroundSize: "cover" , backgroundRepeat: "no-repeat", minHeight: "120vh" }}
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
