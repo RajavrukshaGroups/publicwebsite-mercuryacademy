@@ -1,0 +1,1070 @@
+﻿<USER_REQUEST>
+@[d:\Websites-Changes\publicwebsite-mercuryacademy\app\universities\[universitySlug]\courses\[universityCourseSlug]\page.tsx]  /**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React, { useState } from 'react';
+import {
+  Phone,
+  ChevronDown,
+  ChevronUp,
+  Menu,
+  X,
+  UserCheck,
+  ShieldCheck,
+  ArrowLeft,
+  Calendar,
+  Monitor,
+  MapPin,
+  Award,
+  CreditCard,
+  Download,
+  User,
+  FileText,
+  Star,
+  ArrowRight,
+  CheckCircle2,
+  Clock,
+  DollarSign,
+  BookOpen,
+  Layers,
+  Play,
+  Mail,
+  Facebook,
+  Linkedin,
+  Twitter,
+  Instagram,
+  Youtube,
+} from 'lucide-react';
+import {
+  PROGRAM_INFO,
+  ABOUT_TEXT,
+  INFO_CARDS,
+  FEE_STRUCTURE,
+  SEMESTER_CURRICULUM,
+  FAQ_ITEMS,
+  PROGRAM_AT_A_GLANCE,
+} from './data';
+
+type ModalType =
+  | null
+  | 'counselling'
+  | 'signin'
+  | 'apply'
+  | 'brochure'
+  | 'eligibility'
+  | 'admission'
+  | 'video';
+
+export default function App() {
+  // Modal State
+  const [activeModal, setActiveModal] = useState<ModalType>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [formState, setFormState] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    specialization: 'Business Analytics',
+    workExperience: 'Fresh Graduate',
+  });
+
+  // Navigation & UI States
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [universitiesOpen, setUniversitiesOpen] = useState(false);
+  const [programsOpen, setProgramsOpen] = useState(false);
+  const [openSemesterId, setOpenSemesterId] = useState<number | null>(2);
+  const [openFaqIds, setOpenFaqIds] = useState<string[]>(['faq-1']);
+
+  // Handlers
+  const handleCardAction = (actionId: string) => {
+    switch (actionId) {
+      case 'eligibility':
+        setActiveModal('eligibility');
+        break;
+      case 'admission':
+        setActiveModal('admission');
+        break;
+      case 'benefits':
+        setActiveModal('counselling');
+        break;
+      default:
+        setActiveModal('counselling');
+    }
+  };
+
+  const toggleSemester = (id: number) => {
+    setOpenSemesterId(openSemesterId === id ? null : id);
+  };
+
+  const toggleFaq = (id: string) => {
+    if (openFaqIds.includes(id)) {
+      setOpenFaqIds(openFaqIds.filter((item) => item !== id));
+    } else {
+      setOpenFaqIds([...openFaqIds, id]);
+    }
+  };
+
+  const handleSubmitModalForm = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setActiveModal(null);
+    }, 2500);
+  };
+
+  // Helper for rendering fee card icon
+  const renderFeeIcon = (iconType: string) => {
+    switch (iconType) {
+      case 'application':
+        return <Award className="w-6 h-6 text-amber-600" />;
+      case 'semester':
+        return <Calendar className="w-6 h-6 text-amber-600" />;
+      case 'annual':
+        return <Clock className="w-6 h-6 text-amber-600" />;
+      case 'total':
+        return <DollarSign className="w-6 h-6 text-amber-600" />;
+      default:
+        return <CreditCard className="w-6 h-6 text-amber-600" />;
+    }
+  };
+
+  // Helper for rendering info card icon
+  const renderInfoIcon = (type: string) => {
+    switch (type) {
+      case 'eligibility':
+        return <User className="w-6 h-6 text-amber-600" />;
+      case 'admission':
+        return <FileText className="w-6 h-6 text-amber-600" />;
+      case 'benefits':
+        return <Star className="w-6 h-6 text-amber-600" />;
+      default:
+        return <User className="w-6 h-6 text-amber-600" />;
+    }
+  };
+
+  // Divide FAQ items into two columns
+  const midPoint = Math.ceil(FAQ_ITEMS.length / 2);
+  const leftFaqs = FAQ_ITEMS.slice(0, midPoint);
+  const rightFaqs = FAQ_ITEMS.slice(midPoint);
+
+  return (
+    <div className="min-h-screen flex flex-col bg-white text-gray-900 selection:bg-amber-500 selection:text-white">
+      {/* ========================================================================= */}
+      {/* 1. TOP STICKY NAVIGATION BAR                                             */}
+      {/* ========================================================================= */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-xs transition-all">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <a href="#" className="flex items-center gap-3 group">
+              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-blue-700 to-indigo-900 flex items-center justify-center text-white font-serif font-bold text-lg shadow-md border-2 border-amber-400">
+                DSU
+              </div>
+              <div className="flex flex-col">
+                <span className="font-serif font-extrabold text-lg sm:text-xl tracking-tight text-blue-950 leading-none group-hover:text-blue-800 transition-colors">
+                  DAYANANDA SAGAR
+                </span>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <span className="text-xs sm:text-sm font-bold text-blue-950 tracking-wider">
+                    UNIVERSITY
+                  </span>
+                  <span className="h-3 w-[1.5px] bg-amber-500"></span>
+                  <span className="text-xs sm:text-sm font-bold text-amber-600 tracking-wider">
+                    ONLINE
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-gray-700">
+              {/* Universities Dropdown */}
+              <div className="relative group">
+                <button
+                  onClick={() => setUniversitiesOpen(!universitiesOpen)}
+                  onMouseEnter={() => setUniversitiesOpen(true)}
+                  className="flex items-center gap-1.5 hover:text-blue-900 py-2 transition-colors cursor-pointer"
+                >
+                  <span>Universities</span>
+                  <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-blue-900 transition-transform duration-200 group-hover:rotate-180" />
+                </button>
+                {universitiesOpen && (
+                  <div
+                    onMouseLeave={() => setUniversitiesOpen(false)}
+                    className="absolute top-full left-0 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                  >
+                    <a href="#about" className="block px-4 py-2 text-gray-700 hover:bg-blue-50/70 hover:text-blue-900 font-medium">
+                      Dayananda Sagar University (DSU)
+                    </a>
+                    <a href="#about" className="block px-4 py-2 text-gray-700 hover:bg-blue-50/70 hover:text-blue-900 font-medium">
+                      UGC Entitled Recognition
+                    </a>
+                    <a href="#about" className="block px-4 py-2 text-gray-700 hover:bg-blue-50/70 hover:text-blue-900 font-medium">
+                      Academic Heritage & Faculty
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              {/* Programs Dropdown */}
+              <div className="relative group">
+                <button
+                  onClick={() => setProgramsOpen(!programsOpen)}
+                  onMouseEnter={() => setProgramsOpen(true)}
+                  className="flex items-center gap-1.5 text-blue-950 font-bold border-b-2 border-blue-900 py-2 cursor-pointer"
+                >
+                  <span>Programs</span>
+                </button>
+                {programsOpen && (
+                  <div
+                    onMouseLeave={() => setProgramsOpen(false)}
+                    className="absolute top-full left-0 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                  >
+                    <a href="#hero" className="block px-4 py-2.5 bg-blue-50 text-blue-900 font-semibold border-l-4 border-amber-500">
+                      BBA in Business Analytics
+                    </a>
+                    <a href="#curriculum" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 font-medium">
+                      Online MBA (Master of Business Admin)
+                    </a>
+                    <a href="#curriculum" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 font-medium">
+                      Online MCA (Computer Applications)
+                    </a>
+                    <a href="#curriculum" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 font-medium">
+                      Online BCA (Bachelor of Computer App)
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              <a href="#about" className="hover:text-blue-900 py-2 transition-colors">
+                Why DSU Online
+              </a>
+              <a href="#faq" className="hover:text-blue-900 py-2 transition-colors">
+                Success Stories
+              </a>
+              <a href="#curriculum" className="hover:text-blue-900 py-2 transition-colors">
+                Resources
+              </a>
+            </nav>
+
+            {/* Right Action Buttons */}
+            <div className="hidden sm:flex items-center gap-4">
+              <a
+                href="tel:+917330411025"
+                className="flex items-center gap-2 text-gray-900 hover:text-blue-900 font-bold text-sm tracking-tight transition-colors"
+              >
+                <Phone className="w-4 h-4 text-blue-900 fill-blue-900/10" />
+                <span>+91 73304 11025</span>
+              </a>
+
+              <button
+                onClick={() => setActiveModal('signin')}
+                className="px-5 py-2.5 rounded-lg border border-gray-300 hover:border-gray-400 bg-white text-gray-800 font-semibold text-sm transition-all shadow-2xs hover:bg-gray-50 cursor-pointer"
+              >
+                Sign In
+              </button>
+
+              <button
+                onClick={() => setActiveModal('counselling')}
+                className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-500 hover:from-amber-600 hover:to-amber-600 text-white font-bold text-sm transition-all shadow-sm hover:shadow-md cursor-pointer transform active:scale-98"
+              >
+                Free Counselling
+              </button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="flex items-center gap-3 lg:hidden">
+              <button
+                onClick={() => setActiveModal('counselling')}
+                className="px-3.5 py-2 rounded-lg bg-amber-500 text-white font-bold text-xs shadow-xs"
+              >
+                Counselling
+              </button>
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 text-gray-700 hover:text-gray-900"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-white border-t border-gray-100 px-4 py-5 shadow-xl space-y-4 animate-in slide-in-from-top-4">
+            <div className="grid grid-cols-2 gap-2 text-sm font-semibold text-gray-800">
+              <a
+                href="#about"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2.5 rounded-lg bg-gray-50 hover:bg-blue-50/50"
+              >
+                Universities
+              </a>
+              <a
+                href="#hero"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2.5 rounded-lg bg-blue-50 text-blue-950 font-bold border-l-4 border-amber-500"
+              >
+                Programs (BBA)
+              </a>
+              <a
+                href="#about"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2.5 rounded-lg bg-gray-50 hover:bg-blue-50/50"
+              >
+                Why DSU Online
+              </a>
+              <a
+                href="#faq"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2.5 rounded-lg bg-gray-50 hover:bg-blue-50/50"
+              >
+                Success Stories
+              </a>
+              <a
+                href="#curriculum"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2.5 rounded-lg bg-gray-50 hover:bg-blue-50/50 col-span-2"
+              >
+                Resources & Curriculum
+              </a>
+            </div>
+
+            <div className="pt-3 border-t border-gray-100 flex flex-col gap-3">
+              <a
+                href="tel:+917330411025"
+                className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-blue-50 text-blue-950 font-bold text-sm"
+              >
+                <Phone className="w-4 h-4 text-blue-900" />
+                <span>+91 73304 11025</span>
+              </a>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setActiveModal('signin');
+                  }}
+                  className="w-full py-2.5 rounded-lg border border-gray-300 text-gray-800 font-semibold text-sm"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setActiveModal('counselling');
+                  }}
+                  className="w-full py-2.5 rounded-lg bg-amber-500 text-white font-bold text-sm shadow-xs"
+                >
+                  Counselling
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* ========================================================================= */}
+      {/* 2. HERO BANNER WITH ARCHITECTURE PHOTO AND GOLD DIAGONAL SEPARATOR      */}
+      {/* ========================================================================= */}
+      <section id="hero" className="relative bg-[#0d1c3a] text-white overflow-hidden">
+        {/* Background Layers */}
+        <div className="absolute inset-0 z-0 flex">
+          {/* Left Dark Navy Gradient Backdrop */}
+          <div className="w-full lg:w-[58%] h-full bg-gradient-to-r from-[#0a1835] via-[#0d1c3a] to-[#112347] z-10"></div>
+
+          {/* Right University Architecture Photo with Diagonal clip */}
+          <div className="hidden lg:block lg:w-[46%] h-full relative z-0">
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80')`,
+              }}
+            />
+            {/* Subtle overlay */}
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-blue-950/20 to-[#0d1c3a]" />
+            {/* Diagonal Golden Stripe separator */}
+            <div
+              className="absolute top-0 left-0 bottom-0 w-3 bg-amber-400 z-20 shadow-xl"
+              style={{
+                transform: 'skewX(-16deg)',
+                transformOrigin: 'top left',
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Main Content Container */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-20">
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
+            {/* Left Column Content */}
+            <div className="max-w-2xl">
+              {/* Breadcrumb Back Link */}
+              <a
+                href="#"
+                className="inline-flex items-center gap-2 text-amber-300 hover:text-amber-200 text-sm font-semibold transition-colors mb-8 group"
+              >
+                <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                <span>Back to DSU Online</span>
+              </a>
+
+              {/* Program Type & UG Badges */}
+              <div className="flex flex-wrap items-center gap-2 mb-6">
+                <span className="px-3.5 py-1 rounded-full border border-amber-400/80 text-amber-400 font-bold text-xs uppercase tracking-wider bg-amber-400/10">
+                  {PROGRAM_INFO.programType}
+                </span>
+                <span className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white font-semibold text-xs uppercase tracking-wider">
+                  {PROGRAM_INFO.level}
+                </span>
+              </div>
+
+              {/* Main Program Title */}
+              <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-6">
+                <span className="block text-white">BBA in</span>
+                <span className="block text-[#fdb813] drop-shadow-sm">
+                  Business Analytics
+                </span>
+              </h1>
+
+              {/* Offered by line */}
+              <p className="text-gray-200 text-base sm:text-lg mb-10 sm:mb-14 font-medium">
+                Offered by{' '}
+                <span className="text-[#fdb813] font-bold">
+                  {PROGRAM_INFO.offeredBy}
+                </span>
+              </p>
+
+              {/* Highlights Horizontal Pills */}
+              <div className="flex flex-wrap items-center gap-5 sm:gap-8 text-sm sm:text-base font-semibold border-t border-white/15 pt-8">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-amber-400/15 flex items-center justify-center text-[#fdb813]">
+                    <Calendar className="w-4 h-4" />
+                  </div>
+                  <span className="text-white">{PROGRAM_INFO.duration}</span>
+                </div>
+
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-amber-400/15 flex items-center justify-center text-[#fdb813]">
+                    <Monitor className="w-4 h-4" />
+                  </div>
+                  <span className="text-white">{PROGRAM_INFO.studyMode}</span>
+                </div>
+
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-amber-400/15 flex items-center justify-center text-[#fdb813]">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <span className="text-white">{PROGRAM_INFO.location}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: UGC Entitled Floating Badge */}
+            <div className="flex flex-col items-start lg:items-end justify-between self-stretch">
+              <div className="bg-white/95 text-gray-900 px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3.5 border border-amber-100 backdrop-blur-sm self-start lg:self-end">
+                <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
+                  <Award className="w-6 h-6 text-amber-600 fill-amber-500/20" />
+                </div>
+                <div>
+                  <div className="font-bold text-gray-900 text-sm tracking-tight leading-tight">
+                    {PROGRAM_INFO.accreditationBadge}
+                  </div>
+                  <div className="text-xs text-gray-500 font-medium">
+                    {PROGRAM_INFO.accreditationSubtitle}
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile CTA buttons */}
+              <div className="flex lg:hidden flex-wrap items-center gap-3 mt-8 w-full">
+                <button
+                  onClick={() => setActiveModal('apply')}
+                  className="flex-1 px-5 py-3 rounded-xl bg-amber-500 text-white font-bold text-sm text-center shadow-md"
+                >
+                  Apply Now
+                </button>
+                <button
+                  onClick={() => setActiveModal('brochure')}
+                  className="flex-1 px-5 py-3 rounded-xl border border-white/40 text-white font-semibold text-sm text-center bg-white/10"
+                >
+                  Brochure â†“
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 3. MAIN CONTENT: ABOUT PROGRAM + PROGRAM HIGHLIGHTS CARD                  */}
+      {/* ========================================================================= */}
+      <main className="flex-1">
+        <section id="about" className="py-14 sm:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+              {/* Left Column: About course text (7 columns) */}
+              <div className="lg:col-span-7">
+                <span className="text-amber-600 font-extrabold text-xs tracking-wider uppercase mb-3 block">
+                  ABOUT THIS PROGRAM
+                </span>
+
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+                  {ABOUT_TEXT.heading}
+                </h2>
+
+                <div className="space-y-4 text-gray-700 text-base sm:text-lg leading-relaxed font-normal">
+                  {ABOUT_TEXT.paragraphs.map((para, idx) => (
+                    <p key={idx} className="text-gray-600 leading-7">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column: Program Highlights Dark Card (5 columns) */}
+              <div className="lg:col-span-5">
+                <div className="bg-[#051329] text-white rounded-3xl p-7 sm:p-8 shadow-2xl border border-blue-900/40 relative overflow-hidden">
+                  {/* Top golden accent line */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-amber-400 to-transparent" />
+
+                  <div className="text-amber-400 font-bold text-xs tracking-wider uppercase mb-2">
+                    PROGRAM HIGHLIGHTS
+                  </div>
+
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-8 leading-tight">
+                    Bachelor of Business Administration (BBA)
+                  </h3>
+
+                  {/* Highlights rows */}
+                  <div className="space-y-5 border-b border-white/10 pb-8 mb-8">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 text-gray-300 font-medium">
+                        <div className="w-9 h-9 rounded-xl bg-amber-400/10 flex items-center justify-center text-amber-400">
+                          <Calendar className="w-5 h-5" />
+                        </div>
+                        <span>Duration</span>
+                      </div>
+                      <span className="font-bold text-white text-base">3 Years</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 text-gray-300 font-medium">
+                        <div className="w-9 h-9 rounded-xl bg-amber-400/10 flex items-center justify-center text-amber-400">
+                          <Monitor className="w-5 h-5" />
+                        </div>
+                        <span>Study Mode</span>
+                      </div>
+                      <span className="font-bold text-white text-base">Online</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 text-gray-300 font-medium">
+                        <div className="w-9 h-9 rounded-xl bg-amber-400/10 flex items-center justify-center text-amber-400">
+                          <UserCheck className="w-5 h-5" />
+                        </div>
+                        <span>Admission</span>
+                      </div>
+                      <span className="font-bold text-white text-base">Direct</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 text-gray-300 font-medium">
+                        <div className="w-9 h-9 rounded-xl bg-amber-400/10 flex items-center justify-center text-amber-400">
+                          <CreditCard className="w-5 h-5" />
+                        </div>
+                        <span>Total Fee</span>
+                      </div>
+                      <span className="font-bold text-white text-xl text-amber-300">
+                        â‚¹1,30,000
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <button
+                      onClick={() => setActiveModal('apply')}
+                      className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-500 hover:from-amber-600 hover:to-amber-600 text-white font-bold text-sm transition-all shadow-md hover:shadow-lg text-center cursor-pointer transform active:scale-98"
+                    >
+                      Apply Now
+                    </button>
+
+                    <button
+                      onClick={() => setActiveModal('brochure')}
+                      className="w-full py-3.5 px-4 rounded-xl border border-white/30 hover:border-white/60 bg-transparent hover:bg-white/5 text-white font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <span>Download Brochure</span>
+                      <Download className="w-4 h-4 text-gray-300" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 4. 3 INFO CARDS: ELIGIBILITY, ADMISSION PROCESS, LEARNING BENEFITS        */}
+        {/* ========================================================================= */}
+        <section className="pb-14 sm:pb-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+              {INFO_CARDS.map((card) => (
+                <div
+                  key={card.id}
+                  className="bg-white rounded-2xl p-7 sm:p-8 border border-gray-150 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    {/* Header with rounded amber icon badge and title */}
+                    <div className="flex items-center gap-3.5 mb-5">
+                      <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center border border-amber-100">
+                        {renderInfoIcon(card.iconType)}
+                      </div>
+                      <h3 className="font-serif text-2xl font-bold text-gray-900">
+                        {card.title}
+                      </h3>
+                    </div>
+
+                    {/* Description or Bullet Points */}
+                    {card.description && (
+                      <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-6">
+                        {card.description}
+                      </p>
+                    )}
+
+                    {card.bulletPoints && (
+                      <ul className="space-y-3.5 mb-6">
+                        {card.bulletPoints.map((point, idx) => (
+                          <li
+                            key={idx}
+                            className="flex items-start gap-3 text-gray-700 text-sm sm:text-base font-medium"
+                          >
+                            <CheckCircle2 className="w-5 h-5 text-amber-500 shrink-0 mt-0.5 fill-amber-500/10" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+
+                  {/* Action Link button */}
+                  {card.linkText && (
+                    <button
+                      onClick={() => handleCardAction(card.linkAction || card.id)}
+                      className="inline-flex items-center gap-2 text-blue-950 hover:text-amber-600 font-bold text-sm group transition-colors self-start cursor-pointer pt-2"
+                    >
+                      <span>{card.linkText}</span>
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 5. PROGRAM FEE STRUCTURE (4 HORIZONTAL CARDS)                             */}
+        {/* ========================================================================= */}
+        <section id="fees" className="pb-16 sm:pb-24 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-8">
+              <span className="text-amber-600 font-extrabold text-xs tracking-wider uppercase mb-2 block">
+                FEE DETAILS
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900">
+                Program Fee Structure
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {FEE_STRUCTURE.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-amber-50/40 hover:bg-amber-50/70 rounded-2xl p-6 border border-amber-100/60 shadow-2xs hover:shadow-sm transition-all flex items-center gap-4"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-xs border border-amber-100 shrink-0">
+                    {renderFeeIcon(item.iconType)}
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">
+                      {item.label}
+                    </div>
+                    <div className="font-serif text-2xl sm:text-3xl font-extrabold text-gray-900">
+                      {item.amount}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 6. SEMESTER-WISE SUBJECTS ACCORDION + PROGRAM AT A GLANCE & VIDEO         */}
+        {/* ========================================================================= */}
+        <section id="curriculum" className="pb-16 sm:pb-24 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+              {/* Left Column: Semester-wise subjects accordion (7 columns) */}
+              <div className="lg:col-span-7">
+                <span className="text-amber-600 font-extrabold text-xs tracking-wider uppercase mb-2 block">
+                  COURSE CURRICULUM
+                </span>
+                <h2 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mb-8">
+                  Semester-wise Subjects
+                </h2>
+
+                <div className="space-y-3">
+                  {SEMESTER_CURRICULUM.map((sem) => {
+                    const isOpen = openSemesterId === sem.id;
+                    return (
+                      <div
+                        key={sem.id}
+                        className="border border-gray-200 rounded-2xl overflow-hidden transition-all shadow-2xs"
+                      >
+                        {/* Header bar */}
+                        <button
+                          onClick={() => toggleSemester(sem.id)}
+                          className={`w-full px-6 py-4 flex items-center justify-between text-left font-bold transition-colors cursor-pointer ${
+                            isOpen
+                              ? 'bg-[#06142e] text-white'
+                              : 'bg-white hover:bg-gray-50 text-gray-900'
+                          }`}
+                        >
+                          <span className="text-base sm:text-lg font-bold">
+                            {sem.title}
+                          </span>
+                          <div className="flex items-center gap-3">
+                            <span
+                              className={`text-xs font-bold px-2.5 py-1 rounded-md ${
+                                isOpen
+                                  ? 'bg-white/10 text-gray-200'
+                                  : 'bg-gray-100 text-gray-600'
+                              }`}
+                            >
+                              {sem.subjectCount} Subjects
+                            </span>
+                            {isOpen ? (
+                              <ChevronUp className="w-5 h-5 text-gray-300" />
+                            ) : (
+                              <ChevronDown className="w-5 h-5 text-gray-400" />
+                            )}
+                          </div>
+                        </button>
+
+                        {/* Collapsible Content */}
+                        {isOpen && (
+                          <div className="p-6 sm:p-7 bg-white border-t border-gray-100 animate-in fade-in duration-200">
+                            {sem.description && (
+                              <p className="text-gray-600 text-sm sm:text-base mb-6 font-medium leading-relaxed">
+                                {sem.description}
+                              </p>
+                            )}
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 gap-x-6">
+                              {sem.subjects.map((sub, sIdx) => (
+                                <div
+                                  key={sIdx}
+                                  className="flex items-start gap-2.5 text-gray-800 text-sm sm:text-base font-medium"
+                                >
+                                  <span className="w-2 h-2 rounded-full bg-amber-500 mt-2 shrink-0"></span>
+                                  <span>{sub.name}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Right Column: Program at a Glance + Life at DSU Video Card (5 columns) */}
+              <div className="lg:col-span-5 space-y-6">
+                {/* Dark Navy Program at a Glance card */}
+                <div className="bg-[#051329] text-white rounded-3xl p-7 sm:p-8 shadow-xl border border-blue-900/40">
+                  <div className="text-amber-400 font-bold text-xs tracking-wider uppercase mb-7">
+                    PROGRAM AT A GLANCE
+                  </div>
+
+                  <div className="space-y-7">
+                    {/* 6 Semesters */}
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-amber-400 shrink-0">
+                        <BookOpen className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <div className="font-serif text-3xl font-extrabold text-white leading-none mb-1">
+                          {PROGRAM_AT_A_GLANCE.semesters}
+                        </div>
+                        <div className="text-sm font-medium text-gray-300">
+                          Semesters
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 31 Subjects */}
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-amber-400 shrink-0">
+                        <Layers className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <div className="font-serif text-3xl font-extrabold text-white leading-none mb-1">
+                          {PROGRAM_AT_A_GLANCE.subjects}
+                        </div>
+                        <div className="text-sm font-medium text-gray-300">
+                          Subjects
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 92 Total Credits */}
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-amber-400 shrink-0">
+                        <Award className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <div className="font-serif text-3xl font-extrabold text-white leading-none mb-1">
+                          {PROGRAM_AT_A_GLANCE.totalCredits}
+                        </div>
+                        <div className="text-sm font-medium text-gray-300">
+                          Total Credits
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Life at DSU Online Video Thumbnail Card */}
+                <div
+                  onClick={() => setActiveModal('video')}
+                  className="relative rounded-3xl overflow-hidden shadow-xl border border-gray-800 group cursor-pointer bg-[#0a1835] aspect-[16/10]"
+                >
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                    style={{
+                      backgroundImage: `url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80')`,
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#040e21] via-[#040e21]/70 to-[#040e21]/40 group-hover:via-[#040e21]/60 transition-colors" />
+
+                  {/* Play icon & text centered */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-10">
+                    <div className="w-16 h-16 rounded-full bg-white text-gray-900 flex items-center justify-center shadow-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Play className="w-6 h-6 fill-gray-900 text-gray-900 ml-1" />
+                    </div>
+                    <div className="font-serif text-xl sm:text-2xl font-bold text-white mb-1.5">
+                      Life at DSU Online
+                    </div>
+                    <div className="text-amber-400 font-bold text-sm tracking-wide">
+                      Watch Video
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 7. FREQUENTLY ASKED QUESTIONS (2-COLUMN ACCORDION)                      */}
+        {/* ========================================================================= */}
+        <section id="faq" className="pb-16 sm:pb-24 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-8">
+              <span className="text-amber-600 font-extrabold text-xs tracking-wider uppercase mb-2 block">
+                COMMON QUESTIONS
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900">
+                Frequently Asked Questions
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 items-start">
+              {/* Left column */}
+              <div className="space-y-3.5">
+                {leftFaqs.map((faq) => {
+                  const isOpen = openFaqIds.includes(faq.id);
+                  return (
+                    <div
+                      key={faq.id}
+                      className="border border-gray-200/80 rounded-2xl bg-white shadow-2xs overflow-hidden transition-all"
+                    >
+                      <button
+                        onClick={() => toggleFaq(faq.id)}
+                        className="w-full px-5 py-4 flex items-center justify-between text-left font-semibold text-gray-800 hover:text-blue-950 transition-colors cursor-pointer"
+                      >
+                        <span className="text-sm sm:text-base pr-3 font-semibold">
+                          {faq.question}
+                        </span>
+                        {isOpen ? (
+                          <ChevronUp className="w-5 h-5 text-gray-400 shrink-0" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5 text-gray-400 shrink-0" />
+                        )}
+                      </button>
+
+                      {isOpen && (
+                        <div className="px-5 pb-4 pt-1 text-gray-600 text-sm sm:text-base leading-relaxed border-t border-gray-100/80 animate-in fade-in duration-200">
+                          {faq.answer}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Right column */}
+              <div className="space-y-3.5">
+                {rightFaqs.map((faq) => {
+                  const isOpen = openFaqIds.includes(faq.id);
+                  return (
+                    <div
+                      key={faq.id}
+                      className="border border-gray-200/80 rounded-2xl bg-white shadow-2xs overflow-hidden transition-all"
+                    >
+                      <button
+                        onClick={() => toggleFaq(faq.id)}
+                        className="w-full px-5 py-4 flex items-center justify-between text-left font-semibold text-gray-800 hover:text-blue-950 transition-colors cursor-pointer"
+                      >
+                        <span className="text-sm sm:text-base pr-3 font-semibold">
+                          {faq.question}
+                        </span>
+                        {isOpen ? (
+                          <ChevronUp className="w-5 h-5 text-gray-400 shrink-0" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5 text-gray-400 shrink-0" />
+                        )}
+                      </button>
+
+                      {isOpen && (
+                        <div className="px-5 pb-4 pt-1 text-gray-600 text-sm sm:text-base leading-relaxed border-t border-gray-100/80 animate-in fade-in duration-200">
+                          {faq.answer}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* ========================================================================= */}
+      {/* 8. FOOTER                                                                */}
+      {/* ========================================================================= */}
+      <footer className="bg-[#030b18] text-white border-t border-blue-900/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+            {/* Col 1: Logo & description */}
+            <div className="space-y-5">
+              <a href="#" className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-700 to-indigo-900 flex items-center justify-center text-white font-serif font-bold text-base shadow-md border-2 border-amber-400">
+                  DSU
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-serif font-extrabold text-base tracking-tight text-white leading-none">
+                    DAYANANDA SAGAR
+                  </span>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <span className="text-xs font-bold text-white tracking-wider">
+                      UNIVERSITY
+                    </span>
+                    <span className="h-3 w-[1.5px] bg-amber-500"></span>
+                    <span className="text-xs font-bold text-amber-400 tracking-wider">
+                      ONLINE
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+              <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+                Explore recognized universities, compare online and distance courses, and receive expertise admission guidance.
+              </p>
+
+              <div className="flex items-center gap-3.5 text-gray-400">
+                <a href="#" aria-label="Facebook" className="hover:text-amber-400 transition-colors">
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a href="#" aria-label="LinkedIn" className="hover:text-amber-400 transition-colors">
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a href="#" aria-label="Twitter" className="hover:text-amber-400 transition-colors">
+                  <Twitter className="w-5 h-5" />
+                </a>
+                <a href="#" aria-label="Instagram" className="hover:text-amber-400 transition-colors">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="#" aria-label="YouTube" className="hover:text-amber-400 transition-colors">
+                  <Youtube className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Col 2: Explore */}
+            <div>
+              <h4 className="font-bold text-white text-base mb-5 tracking-tight">
+                Explore
+              </h4>
+              <ul className="space-y-3 text-sm text-gray-300 font-medium">
+                <li>
+                  <a href="#about" className="hover:text-amber-400 transition-colors">
+                    Universities
+                  </a>
+                </li>
+                <li>
+                  <a href="#hero" className="hover:text-amber-400 transition-colors">
+                    Programs
+                  </a>
+                </li>
+                <li>
+                  <a href="#about" className="hover:text-amber-400 transition-colors">
+                    Why DSU Online
+                  </a>
+                </li>
+                <li>
+                  <a href="#faq" className="hover:text-amber-400 transition-colors">
+                    Success Stories
+                  </a>
+                </li>
+                <li>
+                  <a href="#curriculum" className="hover:text-amber-400 transition-colors">
+                    Resources
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 3: Popular Programs */}
+            <div>
+              <h4 className="font-bold text-white text-base mb-5 tracking-tight">
+                Popular Programs
+              </h4>
+              <ul className="space-y-3 text-sm text-gray-300 font-medium">
+                <li>
+                  <a href="#hero" className="hover:text-amber-400 transition-colors">
+                    Online MBA
+                  </a>
+                </li>
+                <li>
+                  <a href="#hero" className="hover:text-amber-400 transition-colors">
+                    Online MCA
+                  </a>
+                </li>
+                <li>
+                  <a href="#hero" className="hover:text-amber-400 transition-colors text-amber-400 font-bold">
+                    Online BBA (Business Analytics)
+                  </a>
+                </li>
+                <li>
+                  <a href="#hero" className="hover:text-amber-400 transition-colors">
+               
+<truncated 27121 bytes>
+
+NOTE: The output was truncated because it was too long. Use a more targeted query or a smaller range to get the information you need.

@@ -99,7 +99,7 @@ export default function UniversityClientView({
 
 
       {/* 2. HERO SECTION WITH ENQUIRE NOW FORM */}
-      <section className="relative bg-[#071938] text-white pt-10 pb-16 overflow-hidden"
+      <section className="relative bg-[#071938] text-white -mt-24.5 pt-10 pb-16 overflow-hidden h-[110vh]"
        style={{backgroundImage: `url(${dayanandasagarImg.src})` , backgroundPosition: "center" , backgroundSize: "cover" , backgroundRepeat: "no-repeat"}}
       >
         <div className="absolute inset-0 bg-[radial-gradient(#1e3a8a_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none" />
@@ -108,7 +108,7 @@ export default function UniversityClientView({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             {/* Left Hero Content */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-6 pt-40">
               <div className="inline-block">
                 <span className="text-xs font-black tracking-widest text-amber-400 uppercase">
                   FUTURE-<span className="text-white">READY EDUCATION</span>
@@ -178,7 +178,7 @@ export default function UniversityClientView({
             </div>
 
             {/* Right Hero Frame & Floating Form */}
-            <div className="lg:col-span-5 relative mt-6 lg:mt-0">
+            <div className="lg:col-span-5 relative mt-6 lg:mt-24">
               <div className="relative rounded-3xl overflow-hidden border-4 border-amber-400/30 shadow-2xl min-h-[420px]">
                 <img 
                   src={displayBannerUrl} 
@@ -264,7 +264,7 @@ export default function UniversityClientView({
       {/* 3. STATS STRIP BANNER */}
       <section className="bg-white border-y border-slate-200 py-6 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-200 flex items-center justify-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center justify-center text-center divide-y md:divide-y-0 md:divide-x divide-slate-200">
             {/* <div className="flex items-center justify-center gap-3 pt-2 md:pt-0">
               <Building className="w-7 h-7 text-amber-500 shrink-0" />
               <div className="text-left">
@@ -383,36 +383,65 @@ export default function UniversityClientView({
         </div>
 
         {filteredCourses.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {filteredCourses.map((prog: any) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredCourses.map((prog: any, index: number) => {
               const title = `${prog.courseCatalog?.shortName || prog.courseCatalog?.name} ${prog.specialization?.name ? `- ${prog.specialization.name}` : ''}`;
+              
+              const cardThemes = [
+                { icon: BarChart, colorText: 'text-indigo-600', colorBg: 'bg-indigo-50', hoverBorder: 'group-hover:border-indigo-500' },
+                { icon: Megaphone, colorText: 'text-orange-500', colorBg: 'bg-orange-50', hoverBorder: 'group-hover:border-orange-500' },
+                { icon: Truck, colorText: 'text-blue-500', colorBg: 'bg-blue-50', hoverBorder: 'group-hover:border-blue-500' },
+                { icon: ShieldCheck, colorText: 'text-emerald-500', colorBg: 'bg-emerald-50', hoverBorder: 'group-hover:border-emerald-500' },
+                { icon: Smartphone, colorText: 'text-purple-500', colorBg: 'bg-purple-50', hoverBorder: 'group-hover:border-purple-500' },
+                { icon: Database, colorText: 'text-amber-500', colorBg: 'bg-amber-50', hoverBorder: 'group-hover:border-amber-500' },
+                { icon: Server, colorText: 'text-cyan-500', colorBg: 'bg-cyan-50', hoverBorder: 'group-hover:border-cyan-500' },
+                { icon: Wifi, colorText: 'text-teal-500', colorBg: 'bg-teal-50', hoverBorder: 'group-hover:border-teal-500' },
+                { icon: Gamepad2, colorText: 'text-pink-500', colorBg: 'bg-pink-50', hoverBorder: 'group-hover:border-pink-500' },
+                { icon: Star, colorText: 'text-yellow-500', colorBg: 'bg-yellow-50', hoverBorder: 'group-hover:border-yellow-500' },
+                { icon: Brain, colorText: 'text-green-500', colorBg: 'bg-green-50', hoverBorder: 'group-hover:border-green-500' },
+                { icon: Cpu, colorText: 'text-indigo-500', colorBg: 'bg-indigo-50', hoverBorder: 'group-hover:border-indigo-500' },
+                { icon: PieChart, colorText: 'text-blue-600', colorBg: 'bg-blue-50', hoverBorder: 'group-hover:border-blue-600' },
+                { icon: Layers, colorText: 'text-orange-600', colorBg: 'bg-orange-50', hoverBorder: 'group-hover:border-orange-600' },
+                { icon: Code, colorText: 'text-emerald-600', colorBg: 'bg-emerald-50', hoverBorder: 'group-hover:border-emerald-600' },
+                { icon: Package, colorText: 'text-rose-500', colorBg: 'bg-rose-50', hoverBorder: 'group-hover:border-rose-500' },
+              ];
+              const theme = cardThemes[index % cardThemes.length];
+              const IconComponent = theme.icon;
+
               return (
                 <div
                   key={prog._id}
-                  className="bg-white border border-slate-200/90 rounded-xl p-4 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between space-y-4 hover:border-amber-400 group cursor-pointer"
+                  className={`bg-white rounded-[20px] p-6 shadow-[0_2px_20px_rgb(0,0,0,0.04)] border border-slate-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 flex flex-col justify-between group cursor-pointer h-full border-b-[3px] border-b-transparent ${theme.hoverBorder}`}
                 >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 border border-amber-200 group-hover:bg-amber-400 group-hover:text-slate-900 transition-colors">
-                      <BookOpen className="w-4 h-4" />
+                  <div>
+                    <div className="flex items-start justify-between mb-6">
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${theme.colorBg} ${theme.colorText}`}>
+                        <IconComponent className="w-5 h-5" />
+                      </div>
+                      <div className="flex items-center gap-1.5 bg-white border border-slate-100 px-3 py-1.5 rounded-full shadow-sm">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        <span className="text-[11px] font-semibold text-slate-600">
+                          {prog.studyMode || "Online"}
+                        </span>
+                      </div>
                     </div>
-                    <span className="text-[9px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full shrink-0">
-                      {prog.studyMode || "Online"}
-                    </span>
+                    
+                    <div className="space-y-1.5 mb-6">
+                      <h3 className="font-extrabold text-[17px] text-slate-900 leading-snug group-hover:text-blue-700 transition-colors">
+                        {title}
+                      </h3>
+                      <p className="text-[13px] text-slate-500 font-medium">
+                        Duration: {prog.duration} {prog.durationUnit}
+                      </p>
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    <h3 className="font-extrabold text-sm text-slate-900 leading-snug group-hover:text-amber-600 transition-colors">
-                      {title}
-                    </h3>
-                    <p className="text-[11px] text-slate-500 font-medium">
-                      Duration: {prog.duration} {prog.durationUnit}
-                    </p>
-                  </div>
+
                   <Link
                     href={`/universities/${university.slug}/courses/${prog.slug}`}
-                    className="pt-2 border-t border-slate-100 flex items-center text-xs font-bold text-amber-600 group-hover:text-amber-700"
+                    className="flex items-center text-[14px] font-bold text-blue-700 group-hover:text-blue-800 transition-colors"
                   >
                     <span>View Course</span>
-                    <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               );
@@ -452,10 +481,10 @@ export default function UniversityClientView({
               <Clock className="w-4 h-4 text-amber-400" />
               <span>Flexible Learn at Your Pace</span>
             </div>
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-amber-400" />
               <span>Career Support</span>
-            </div>
+            </div> */}
           </div>
           <button className="bg-[#FFB800] hover:bg-amber-400 text-slate-950 font-black text-sm px-8 py-3.5 rounded-md shadow-lg transition-all cursor-pointer whitespace-nowrap">
             Apply Now
@@ -463,89 +492,6 @@ export default function UniversityClientView({
         </div>
       </section>
 
-      {/* 7. DETAILED FOOTER */}
-      <footer className="bg-[#030E26] text-slate-300 pt-16 pb-8 border-t border-slate-800 text-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
-          <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              {logoUrl ? (
-                <div className="w-10 h-10 rounded-full bg-white p-0.5 shadow-md flex items-center justify-center shrink-0">
-                  <img src={logoUrl} alt={university.name} className="w-full h-full object-contain" />
-                </div>
-              ) : (
-                <div className="w-10 h-10 rounded-full bg-amber-400 p-0.5 shadow-md flex items-center justify-center shrink-0">
-                  <div className="w-full h-full rounded-full bg-[#071938] border border-amber-300 flex flex-col items-center justify-center text-white">
-                    <GraduationCap className="w-5 h-5 text-amber-400" />
-                  </div>
-                </div>
-              )}
-              <div>
-                <span className="font-bold text-base text-white block font-serif-display">{university.name}</span>
-                <span className="font-extrabold text-xs text-amber-400 uppercase tracking-wider">Online</span>
-              </div>
-            </div>
-            <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
-              Empowering learners with quality education and shaping the leaders of tomorrow.
-            </p>
-            <div className="flex items-center gap-3 pt-2">
-              <a href="#" className="w-8 h-8 rounded-full bg-slate-800 hover:bg-amber-500 hover:text-slate-900 text-slate-300 flex items-center justify-center transition-colors text-xs font-bold">
-                FB
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-slate-800 hover:bg-amber-500 hover:text-slate-900 text-slate-300 flex items-center justify-center transition-colors text-xs font-bold">
-                IN
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-slate-800 hover:bg-amber-500 hover:text-slate-900 text-slate-300 flex items-center justify-center transition-colors text-xs font-bold">
-                IG
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-slate-800 hover:bg-amber-500 hover:text-slate-900 text-slate-300 flex items-center justify-center transition-colors text-xs font-bold">
-                YT
-              </a>
-            </div>
-          </div>
-          <div className="space-y-3">
-            <h4 className="font-bold text-white text-sm">Quick Links</h4>
-            <ul className="space-y-2 text-slate-400">
-              <li><a href="#about" className="hover:text-amber-400">About</a></li>
-              <li><a href="#programs" className="hover:text-amber-400">Programs</a></li>
-              <li><a href="#how-it-works" className="hover:text-amber-400">How It Works</a></li>
-              <li><a href="#contact" className="hover:text-amber-400">Contact Us</a></li>
-            </ul>
-          </div>
-          <div className="space-y-3">
-            <h4 className="font-bold text-white text-sm">Popular Programs</h4>
-            <ul className="space-y-2 text-slate-400">
-              {courseCategories.filter(c => c !== 'ALL').slice(0, 4).map(cat => (
-                <li key={cat}><button onClick={() => setActiveTab(cat)} className="hover:text-amber-400">{cat} Programs</button></li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-3">
-            <h4 className="font-bold text-white text-sm">Contact Us</h4>
-            <div className="space-y-2 text-slate-400 text-xs">
-              <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>+91 80 4909 4909</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span>online@university.edu.in</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
-                <span>{[university.city?.name, university.state?.name].filter(Boolean).join(", ")}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
-          <p>© {new Date().getFullYear()} {university.name}. All Rights Reserved.</p>
-          <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-amber-400">Privacy Policy</a>
-            <span>|</span>
-            <a href="#" className="hover:text-amber-400">Terms &amp; Conditions</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

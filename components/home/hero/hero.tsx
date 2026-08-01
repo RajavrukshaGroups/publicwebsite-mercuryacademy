@@ -417,7 +417,7 @@ import DegreeTransformationSection from "./DegreeTransformationSection"
 
 export function Hero() {
   return (
-    <>
+    <div className="bg-navy-pattern">
       {/* Hero Stats */}
       <HeroStats />
 
@@ -427,6 +427,6 @@ export function Hero() {
       <DegreeTransformationSection />
       <CareerChallengesSection />
         <PartnerUniversities/>
-    </>
+    </div>
   );
 }

@@ -120,8 +120,8 @@ export function HeroStats({
   onOpenHowItWorks,
 }: HeroStatsProps = {}) {
   return (
-    <section className="relative z-10  overflow-hidden " 
-    style={{backgroundImage: `url(${heroBg.src})` , backgroundPosition: "center" , backgroundSize: "cover" , backgroundRepeat: "no-repeat", minHeight: "100vh" }}
+    <section className="relative z-10  overflow-hidden -mt-25  " 
+    style={{backgroundImage: `url(${heroBg.src})` , backgroundPosition: "center" , backgroundSize: "cover" , backgroundRepeat: "no-repeat", minHeight: "120vh" }}
     >
       {/* Background Glow */}
       <div className="absolute top-10 right-0  bg-gradient-to-br from-amber-500/15 via-blue-600/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
@@ -129,7 +129,7 @@ export function HeroStats({
       <div className="relative pt-6 pb-12 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
         {/* Left Content */}
-        <div className="lg:col-span-6 space-y-6 lg:pr-4 lg:pt-20">
+        <div className="lg:col-span-6 space-y-6 lg:pr-4 lg:pt-40">
           <h1 className="font-serif-display text-4xl sm:text-5xl lg:text-[3.5rem] font-medium text-white leading-[1.12] tracking-tight">
             Your Dream Career <br />
             Deserves the Right <br />

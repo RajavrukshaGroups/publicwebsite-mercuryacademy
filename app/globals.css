@@ -429,3 +429,9 @@
 .gold-btn-gradient:hover {
   background: linear-gradient(135deg, #D9932B 0%, #F5B03C 50%, #C9831F 100%);
 }
+
+.bg-navy-pattern {
+  background-color: #122143;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}

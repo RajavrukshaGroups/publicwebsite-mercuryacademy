@@ -128,7 +128,7 @@ export default function PartnerUniversities() {
       <div className="flex items-center justify-center gap-4 mb-8">
         <div className="h-[1px] w-12 sm:w-24 bg-gradient-to-r from-transparent to-amber-500/70" />
 
-        <h2 className="text-amber-900 font-bold text-sm sm:text-base tracking-wider uppercase text-center">
+        <h2 className="text-amber-300 font-bold text-sm sm:text-base tracking-wider uppercase text-center">
           Our Partner Universities
         </h2>
 

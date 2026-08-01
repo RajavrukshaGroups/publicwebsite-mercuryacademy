@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
 
 import { siteConfig } from "@/config/site.config";
 import { footerNavigation } from "@/constants/navigation";
 import { Container } from "@/components/ui/container";
 import { Logo } from "@/components/ui/logo";
+import LogoImg from "../../public/images/Logo.png"
 
 const popularCourses = [
   { label: "Online MBA", href: "/courses/online-mba" },
@@ -25,7 +27,9 @@ export default function SiteFooter() {
       <Container className="py-14">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Logo variant="light" />
+            <div className="">
+            <Image src={LogoImg} alt="Mercury Academy" width={240} height={78} className="h-20 w-auto bg-white" />
+            </div>
 
             <p className="mt-5 text-sm leading-7 text-slate-400">
               Explore recognized universities, compare online and distance

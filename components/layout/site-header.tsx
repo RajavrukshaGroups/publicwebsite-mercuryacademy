@@ -138,17 +138,18 @@ useEffect(() => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-[#e7e9ee] bg-white/95 backdrop-blur-xl">
-        <Container className="flex h-[76px] max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8 lg:h-[106px] lg:px-12">
+      <header className="sticky top-0 sm:top-4 z-50 bg-transparent w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 transition-all">
+        <div className="bg-white rounded-2xl border-t-2 border-[#ca9a3e] border border-top-[#ca9a3e] shadow-[0_12px_40px_rgba(10,31,68,0.08)] px-5 sm:px-7 lg:px-8 py-3.5 sm:py-3 transition-all">
+          <div className="flex items-center justify-between">
           <Logo
             priority
             size="lg"
-            className="max-w-[220px] sm:max-w-[260px] lg:max-w-[360px]"
+            className="max-w-[620px] sm:max-w-[560px] lg:max-w-[460px]"
             imageClassName="lg:h-[70px]"
           />
 
           <nav
-            className="hidden items-center gap-2 xl:flex"
+            className="hidden items-center gap-8 xl:flex"
             aria-label="Main navigation"
           >
             {mainNavigation.map((item) => {
@@ -166,24 +167,21 @@ useEffect(() => {
                     <button
                       type="button"
                       onClick={() => setUniversitiesOpen((current) => !current)}
-                      className={cn(
-                        "flex items-center gap-1.5 rounded-lg px-3 py-2 text-[14px] font-semibold transition-colors 2xl:text-[15px]",
-                        active
-                          ? "text-brand-gold"
-                          : "text-brand-navy hover:bg-brand-gold-soft hover:text-brand-gold",
-                      )}
+                      className="flex flex-col items-center py-1 cursor-pointer"
                       aria-expanded={universitiesOpen}
                       aria-haspopup="menu"
                     >
-                      {item.label}
-
-                      <ChevronDown
-                        className={cn(
-                          "size-4 transition-transform duration-200",
-                          universitiesOpen && "rotate-180",
-                        )}
-                        aria-hidden="true"
-                      />
+                      <div className={cn("flex items-center gap-1 font-bold", active ? "text-[#ca9a3e]" : "text-gray-700 hover:text-gray-950")}>
+                        <span>{item.label}</span>
+                        <ChevronDown
+                          className={cn(
+                            "w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180",
+                            active ? "text-[#ca9a3e]" : "text-gray-400 group-hover:text-gray-950",
+                          )}
+                          aria-hidden="true"
+                        />
+                      </div>
+                      {active && <div className="w-7 h-[2px] bg-[#ca9a3e] mt-1 rounded-full"></div>}
                     </button>
 
                     {universitiesOpen && (
@@ -242,50 +240,49 @@ useEffect(() => {
               }
 
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "rounded-lg px-3 py-2 text-[14px] font-semibold transition-colors 2xl:text-[15px]",
-                    active
-                      ? "text-brand-gold"
-                      : "text-brand-navy hover:bg-brand-gold-soft hover:text-brand-gold",
-                  )}
-                >
-                  {item.label}
-                </Link>
+                <div key={item.href} className="relative group flex flex-col items-center justify-center">
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "py-1 font-medium text-sm transition-colors cursor-pointer",
+                      active
+                        ? "text-[#ca9a3e] font-bold"
+                        : "text-gray-700 font-bold hover:text-gray-950",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                  {active && <div className="w-7 h-[2px] bg-[#ca9a3e] mt-1 rounded-full"></div>}
+                </div>
               );
             })}
           </nav>
 
-          <div className="hidden items-center gap-5 lg:flex">
+          <div className="hidden sm:flex items-center gap-3.5">
+            {/* Phone Pill */}
             <a
               href={phoneHref}
-              className="flex items-center gap-3 text-brand-navy transition-colors hover:text-brand-gold"
+              className="flex items-center gap-2.5 px-4 py-2 rounded-full border border-gray-200 bg-white hover:bg-gray-50 text-gray-800 font-semibold text-xs sm:text-sm tracking-tight transition-all shadow-2xs"
             >
-              <Phone className="size-5 fill-brand-navy" aria-hidden="true" />
-
-              <span className="hidden xl:block">
-                <span className="block text-sm font-bold">
-                  {siteConfig.contact.phone}
-                </span>
-              </span>
+              <Phone className="w-3.5 h-3.5 text-gray-800 fill-gray-800" aria-hidden="true" />
+              <span>{siteConfig.contact.phone}</span>
             </a>
 
-            <span className="h-8 w-px bg-brand-border" />
+            {/* Vertical Divider */}
+            <div className="hidden md:block h-6 w-[1px] bg-gray-200"></div>
 
-            <Link
-              href="/login"
-              className="text-sm font-semibold text-brand-navy transition-colors hover:text-brand-gold"
-            >
-              Sign In
-            </Link>
+            {/* Sign In Button */}
+            
 
+            {/* Free Counselling Button with right arrow */}
             <Link
               href="/contact"
-              className="inline-flex min-h-[50px] items-center justify-center rounded-md bg-brand-gold-light px-5 text-sm font-bold text-brand-navy-dark shadow-brand-sm transition hover:-translate-y-0.5 hover:bg-brand-gold hover:shadow-brand-md"
+              className="px-6 py-2.5  bg-gradient-to-r from-[#ebb850] via-[#dfad43] to-[#cf982e] hover:from-[#dfad43] hover:to-[#c48c20] text-gray-950 font-bold text-sm transition-all shadow-sm hover:shadow-md cursor-pointer flex items-center gap-2 transform active:scale-98"
             >
-              Free Counselling
+              <span>Free Counselling</span>
+              <svg className="w-4 h-4 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </Link>
           </div>
 
@@ -298,7 +295,8 @@ useEffect(() => {
           >
             <Menu className="size-5" aria-hidden="true" />
           </button>
-        </Container>
+          </div>
+        </div>
       </header>
 
       {mobileMenuOpen && (
