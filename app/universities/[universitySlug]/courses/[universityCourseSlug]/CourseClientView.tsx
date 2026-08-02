@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Phone,
@@ -185,10 +185,121 @@ export default function CourseClientView(props: CourseClientViewProps) {
     }
   };
 
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [gateFormState, setGateFormState] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    universityCourse: '',
+    country: '',
+    state: '',
+    city: '',
+    message: ''
+  });
+  const [gateSubmitting, setGateSubmitting] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    if (course?._id && localStorage.getItem(`lead_unlocked_${course._id}`)) {
+      setIsUnlocked(true);
+    }
+  }, [course?._id]);
+
+  const handleGateSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const firstName = gateFormState.firstName.trim();
+    if (firstName.length < 2) {
+      alert('First name must be at least 2 characters.');
+      return;
+    }
+    const phone = gateFormState.phone.trim();
+    if (phone.startsWith('0')) {
+      alert('Phone number cannot start with zero.');
+      return;
+    }
+    if (phone.length !== 10) {
+      alert('Phone number must be exactly 10 digits.');
+      return;
+    }
+    setGateSubmitting(true);
+    try {
+      const payload = {
+        ...gateFormState,
+        universityCourse: course?._id
+      };
+
+      // Filter out empty strings and text inputs that are not objectIds
+      const payloadData = Object.fromEntries(
+        Object.entries(payload).filter(([key, val]) => 
+          val !== '' && !['country', 'state', 'city'].includes(key)
+        )
+      );
+      
+      const res = await fetch('http://localhost:5000/api/v1/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payloadData)
+      });
+      
+      if (res.ok) {
+        localStorage.setItem(`lead_unlocked_${course._id}`, 'true');
+        setIsUnlocked(true);
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Failed to submit form.');
+    } finally {
+      setGateSubmitting(false);
+    }
+  };
+
   // Divide FAQ items into two columns
   const midPoint = Math.ceil(faqs.length / 2);
   const leftFaqs = faqs.slice(0, midPoint);
   const rightFaqs = faqs.slice(midPoint);
+
+  if (isClient && !isUnlocked) {
+    return (
+      <div className="min-h-screen bg-[#0a1835] flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Unlock Course Details</h2>
+            <p className="text-gray-500 text-sm">Please fill out this quick form to view the complete curriculum, fees, and more for {courseName}.</p>
+          </div>
+          <form onSubmit={handleGateSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">First Name *</label>
+                <input required type="text" value={gateFormState.firstName} onChange={(e) => setGateFormState({...gateFormState, firstName: e.target.value})} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-amber-400" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Last Name *</label>
+                <input required type="text" value={gateFormState.lastName} onChange={(e) => setGateFormState({...gateFormState, lastName: e.target.value})} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-amber-400" />
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Email *</label>
+              <input required type="email" value={gateFormState.email} onChange={(e) => setGateFormState({...gateFormState, email: e.target.value})} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-amber-400" />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Phone *</label>
+              <input required type="tel" pattern="^[1-9][0-9]{9}$" maxLength={10} value={gateFormState.phone} onChange={(e) => {
+                const val = e.target.value.replace(/\D/g, '');
+                if (val.length <= 10) setGateFormState({...gateFormState, phone: val});
+              }} className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-amber-400" placeholder="9876543210" />
+            </div>
+            <button disabled={gateSubmitting} type="submit" className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold rounded-lg transition-colors mt-4">
+              {gateSubmitting ? 'Unlocking...' : 'View Course Details'}
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-900 selection:bg-amber-500 selection:text-white">
@@ -415,7 +526,7 @@ export default function CourseClientView(props: CourseClientViewProps) {
                   </div>
 
                   {/* CTA Buttons */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <button
                       onClick={() => setActiveModal('apply')}
                       className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-500 hover:from-amber-600 hover:to-amber-600 text-white font-bold text-sm transition-all shadow-md hover:shadow-lg text-center cursor-pointer transform active:scale-98"
@@ -430,7 +541,7 @@ export default function CourseClientView(props: CourseClientViewProps) {
                       <span>Download Brochure</span>
                       <Download className="w-4 h-4 text-gray-300" />
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -457,13 +568,13 @@ export default function CourseClientView(props: CourseClientViewProps) {
                     {course.eligibility || "Contact our counsellors for complete eligibility details."}
                   </p>
                 </div>
-                <button
+                {/* <button
                   onClick={() => setActiveModal('eligibility')}
                   className="inline-flex items-center gap-2 text-blue-950 hover:text-amber-600 font-bold text-sm group transition-colors self-start cursor-pointer pt-2"
                 >
                   <span>Check Eligibility</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </button>
+                </button> */}
               </div>
 
               <div className="bg-white rounded-2xl p-7 sm:p-8 border border-gray-150 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
@@ -480,13 +591,13 @@ export default function CourseClientView(props: CourseClientViewProps) {
                     {course.admissionProcess || "Apply online, submit the required documents and complete the university verification process."}
                   </p>
                 </div>
-                <button
+                {/* <button
                   onClick={() => setActiveModal('apply')}
                   className="inline-flex items-center gap-2 text-blue-950 hover:text-amber-600 font-bold text-sm group transition-colors self-start cursor-pointer pt-2"
                 >
                   <span>Start Application</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </button>
+                </button> */}
               </div>
 
               <div className="bg-white rounded-2xl p-7 sm:p-8 border border-gray-150 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
@@ -504,23 +615,25 @@ export default function CourseClientView(props: CourseClientViewProps) {
                   </p>
                 </div>
                 {brochureUrl ? (
-                  <a
-                    href={brochureUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 text-blue-950 hover:text-amber-600 font-bold text-sm group transition-colors self-start cursor-pointer pt-2"
-                  >
-                    <span>Download Brochure</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </a>
+                  // <a
+                  //   href={brochureUrl}
+                  //   target="_blank"
+                  //   rel="noreferrer"
+                  //   className="inline-flex items-center gap-2 text-blue-950 hover:text-amber-600 font-bold text-sm group transition-colors self-start cursor-pointer pt-2"
+                  // >
+                  //   <span>Download Brochure</span>
+                  //   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  // </a>
+                  <></>
                 ) : (
-                  <button
-                    onClick={() => setActiveModal('brochure')}
-                    className="inline-flex items-center gap-2 text-blue-950 hover:text-amber-600 font-bold text-sm group transition-colors self-start cursor-pointer pt-2"
-                  >
-                    <span>Download Brochure</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </button>
+                  // <button
+                  //   onClick={() => setActiveModal('brochure')}
+                  //   className="inline-flex items-center gap-2 text-blue-950 hover:text-amber-600 font-bold text-sm group transition-colors self-start cursor-pointer pt-2"
+                  // >
+                  //   <span>Download Brochure</span>
+                  //   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  // </button>
+                  <></>
                 )}
               </div>
             </div>

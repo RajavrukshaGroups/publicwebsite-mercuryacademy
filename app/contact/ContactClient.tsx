@@ -1,26 +1,70 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { apiRequest } from '../../services/api/client';
 import { Mail, MapPin, Phone, Clock, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function ContactClient() {
-  const [formState, setFormState] = useState({
-    fullName: '',
+    const [formState, setFormState] = useState({
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
-    program: '',
+    universityCourse: '',
+    country: '',
+    state: '',
+    city: '',
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [universities, setUniversities] = useState<any[]>([]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    apiRequest<any>('/university-courses')
+      .then(resData => {
+        // Handle if response is array directly or wrapped in data
+        const list = Array.isArray(resData) ? resData : (resData.data || []);
+        setUniversities(list);
+      })
+      .catch(err => console.error('Error fetching universities:', err));
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate submission
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormState({ fullName: '', email: '', phone: '', program: '', message: '' });
-    }, 4000);
+
+    // Phone validation
+    const phone = formState.phone.trim();
+    if (phone.startsWith('0')) {
+      alert('Phone number cannot start with zero.');
+      return;
+    }
+    if (phone.length !== 10) {
+      alert('Phone number must be exactly 10 digits.');
+      return;
+    }
+
+    try {
+      // Filter out empty fields and text-based fields that require objectIds
+      const payloadData = Object.fromEntries(
+        Object.entries(formState).filter(([key, val]) => 
+          val !== '' && !['country', 'state', 'city'].includes(key)
+        )
+      );
+
+      await apiRequest('/leads', {
+        method: 'POST',
+        body: JSON.stringify(payloadData)
+      });
+      
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormState({ firstName: '', lastName: '', email: '', phone: '', universityCourse: '', country: '', state: '', city: '', message: '' });
+      }, 4000);
+    } catch (error) {
+      console.error(error);
+      alert('Failed to submit. Please try again.');
+    }
   };
 
   return (
@@ -110,16 +154,30 @@ export default function ContactClient() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Full Name *</label>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">First Name *</label>
                       <input 
                         type="text" 
                         required
-                        value={formState.fullName}
-                        onChange={(e) => setFormState({...formState, fullName: e.target.value})}
+                        value={formState.firstName}
+                        onChange={(e) => setFormState({...formState, firstName: e.target.value})}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#ca9a3e] focus:border-[#ca9a3e] outline-none transition-all text-sm"
-                        placeholder="John Doe"
+                        placeholder="John"
                       />
                     </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Last Name *</label>
+                      <input 
+                        type="text" 
+                        required
+                        value={formState.lastName}
+                        onChange={(e) => setFormState({...formState, lastName: e.target.value})}
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#ca9a3e] focus:border-[#ca9a3e] outline-none transition-all text-sm"
+                        placeholder="Doe"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Email Address *</label>
                       <input 
@@ -131,33 +189,82 @@ export default function ContactClient() {
                         placeholder="john@example.com"
                       />
                     </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Phone Number *</label>
                       <input 
                         type="tel" 
                         required
+                        pattern="^[1-9][0-9]{9}$"
+                        title="Phone number must be exactly 10 digits and cannot start with 0"
+                        maxLength={10}
                         value={formState.phone}
-                        onChange={(e) => setFormState({...formState, phone: e.target.value})}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/\D/g, '');
+                          if (val.length <= 10) {
+                            setFormState({...formState, phone: val});
+                          }
+                        }}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#ca9a3e] focus:border-[#ca9a3e] outline-none transition-all text-sm"
-                        placeholder="+91 98765 43210"
+                        placeholder="9876543210"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-6">
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Program of Interest / University</label>
+                      <select 
+                        value={formState.universityCourse}
+                        onChange={(e) => setFormState({...formState, universityCourse: e.target.value})}
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#ca9a3e] focus:border-[#ca9a3e] outline-none transition-all text-sm bg-white"
+                      >
+                        <option value="">Select a University / Program</option>
+                        {universities.map((uni: any, idx: number) => {
+                          const uniName = uni.university?.name || '';
+                          const courseName = uni.courseCatalog?.name || '';
+                          const specName = uni.specialization?.name ? ` - ${uni.specialization.name}` : '';
+                          const displayName = uniName && courseName 
+                            ? `${uniName} : ${courseName}${specName}` 
+                            : (uni.name || uni.title || uni.slug || 'Course Program');
+
+                          return (
+                            <option key={uni._id || idx} value={uni._id}>{displayName}</option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Country</label>
+                      <input 
+                        type="text" 
+                        value={formState.country}
+                        onChange={(e) => setFormState({...formState, country: e.target.value})}
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#ca9a3e] focus:border-[#ca9a3e] outline-none transition-all text-sm"
+                        placeholder="India"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Program of Interest</label>
-                      <select 
-                        value={formState.program}
-                        onChange={(e) => setFormState({...formState, program: e.target.value})}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#ca9a3e] focus:border-[#ca9a3e] outline-none transition-all text-sm bg-white"
-                      >
-                        <option value="">Select a Program</option>
-                        <option value="BBA">BBA (Business Analytics)</option>
-                        <option value="MBA">Online MBA</option>
-                        <option value="MCA">Online MCA</option>
-                        <option value="BCA">Online BCA</option>
-                      </select>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">State</label>
+                      <input 
+                        type="text" 
+                        value={formState.state}
+                        onChange={(e) => setFormState({...formState, state: e.target.value})}
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#ca9a3e] focus:border-[#ca9a3e] outline-none transition-all text-sm"
+                        placeholder="Karnataka"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">City</label>
+                      <input 
+                        type="text" 
+                        value={formState.city}
+                        onChange={(e) => setFormState({...formState, city: e.target.value})}
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#ca9a3e] focus:border-[#ca9a3e] outline-none transition-all text-sm"
+                        placeholder="Bengaluru"
+                      />
                     </div>
                   </div>
 
@@ -187,7 +294,7 @@ export default function ContactClient() {
             <div className="w-full lg:w-2/5 bg-[#0a1835] text-white p-8 sm:p-12 lg:p-16 flex flex-col relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#ca9a3e] rounded-full blur-[120px] opacity-20 transform translate-x-1/2 -translate-y-1/2"></div>
               
-              <h3 className="font-serif text-2xl font-bold mb-6">Why Contact Us?</h3>
+              <h3 className="font-serif text-2xl font-bold text-white mb-6">Why Contact Us?</h3>
               
               <div className="space-y-8 flex-grow">
                 <div className="flex gap-4">
@@ -195,7 +302,7 @@ export default function ContactClient() {
                     <CheckCircle2 className="w-5 h-5 text-[#ca9a3e]" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg mb-1">Direct Admission Guidance</h4>
+                    <h4 className="font-bold text-lg text-white mb-1">Direct Admission Guidance</h4>
                     <p className="text-sm text-gray-400">Get step-by-step assistance for smooth onboarding into your chosen program.</p>
                   </div>
                 </div>
@@ -205,7 +312,7 @@ export default function ContactClient() {
                     <CheckCircle2 className="w-5 h-5 text-[#ca9a3e]" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg mb-1">Scholarship Information</h4>
+                    <h4 className="font-bold text-lg text-white mb-1">Scholarship Information</h4>
                     <p className="text-sm text-gray-400">Learn about early-bird discounts and special grants you might be eligible for.</p>
                   </div>
                 </div>
@@ -215,7 +322,7 @@ export default function ContactClient() {
                     <CheckCircle2 className="w-5 h-5 text-[#ca9a3e]" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg mb-1">Career Counselling</h4>
+                    <h4 className="font-bold text-lg text-white mb-1">Career Counselling</h4>
                     <p className="text-sm text-gray-400">Not sure which course? Speak to experts to align your goals with our degrees.</p>
                   </div>
                 </div>

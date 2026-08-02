@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import {
   Star,
@@ -26,6 +28,7 @@ import {
   Settings,
   PieChart,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import futureYouPortraitImg from "@/public/images/future_you_portrait_1785321590935.jpg";
 
@@ -34,6 +37,7 @@ import futureYouPortraitImg from "@/public/images/future_you_portrait_1785321590
 // }
 
 export function DegreeTransformationSection () {
+  const router = useRouter();
   return (
     <section className="relative z-10 py-16 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto bg-gradient-to-b from-[#FAF8F5] via-[#F5EFE6] to-[#ECE3D2] text-slate-900 rounded-3xl shadow-2xl my-12 border border-amber-200/70 overflow-hidden font-sans">
       
@@ -423,6 +427,16 @@ export function DegreeTransformationSection () {
 
           {/* 6 Career Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 w-full">
+            {/* 4. Healthcare Management */}
+            <div className="bg-[#F8FAF9] border border-slate-200 rounded-xl p-2.5 text-center flex flex-col items-center justify-between space-y-1.5 hover:border-amber-400 transition-colors">
+              <div className="flex items-center gap-1 text-[11px] font-bold text-slate-800">
+                <Settings className="w-3.5 h-3.5 text-amber-600" />
+                <span className="leading-tight">Healthcare Management</span>
+              </div>
+              <span className="bg-amber-100/90 text-amber-800 border border-amber-300/80 font-black text-[11px] px-2 py-0.5 rounded-full w-full">
+                ₹3 LPA – ₹35 LPA
+              </span>
+            </div>
             
             {/* 1. Business Development Manager */}
             <div className="bg-[#F8FAF9] border border-slate-200 rounded-xl p-2.5 text-center flex flex-col items-center justify-between space-y-1.5 hover:border-amber-400 transition-colors">
@@ -457,16 +471,7 @@ export function DegreeTransformationSection () {
               </span>
             </div>
 
-            {/* 4. Operations Manager */}
-            <div className="bg-[#F8FAF9] border border-slate-200 rounded-xl p-2.5 text-center flex flex-col items-center justify-between space-y-1.5 hover:border-amber-400 transition-colors">
-              <div className="flex items-center gap-1 text-[11px] font-bold text-slate-800">
-                <Settings className="w-3.5 h-3.5 text-amber-600" />
-                <span className="leading-tight">Operations Manager</span>
-              </div>
-              <span className="bg-amber-100/90 text-amber-800 border border-amber-300/80 font-black text-[11px] px-2 py-0.5 rounded-full w-full">
-                ₹7 LPA – ₹15 LPA
-              </span>
-            </div>
+            
 
             {/* 5. Data Analyst */}
             <div className="bg-[#F8FAF9] border border-slate-200 rounded-xl p-2.5 text-center flex flex-col items-center justify-between space-y-1.5 hover:border-amber-400 transition-colors">
@@ -531,15 +536,15 @@ export function DegreeTransformationSection () {
             <Building2 className="w-4 h-4 text-amber-400 shrink-0" />
             <span className="font-semibold">Choose from Top Universities</span>
           </div>
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-amber-400 shrink-0" />
             <span className="font-semibold">Hassle-free Admission</span>
-          </div>
+          </div> */}
         </div>
 
         {/* Right CTA Gold Button */}
         <button
-          //onClick={() => onOpenCounselling('Invest in Education CTA')}
+          onClick={() => router.push('/contact')}
           className="gold-btn-gradient text-white font-bold text-sm px-7 py-3.5 rounded-full shadow-xl shadow-amber-950/50 hover:shadow-amber-500/25 flex items-center gap-3 transition-all transform hover:-translate-y-0.5 whitespace-nowrap cursor-pointer shrink-0"
         >
           <span>Get Free Counselling</span>

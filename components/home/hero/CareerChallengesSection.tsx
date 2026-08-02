@@ -14,6 +14,7 @@ import {
   PhoneCall,
   ArrowRight,
 } from "lucide-react";
+import {useRouter} from 'next/navigation';
 
 import cardNoPromotionImg from "../../../public/images/card_no_promotion_1785318727639.jpg";
 import cardBusyWorkImg from "@/public/images/card_busy_work_1785318747176.jpg";
@@ -28,6 +29,7 @@ import cardGovtJobImg from "@/public/images/card_govt_job_1785318808387.jpg";
 // }
 
 export function CareerChallengesSection() {
+  const router = useRouter();
   const CHALLENGE_CARDS = [
     {
       id: 'no-promotion',
@@ -230,7 +232,7 @@ export function CareerChallengesSection() {
 
         {/* Right Action Button */}
         <button
-          //onClick={onCallClick}
+          onClick={() => router.push('/contact')}
           className="bg-[#081838] hover:bg-[#0E234A] text-white font-bold text-sm px-6 py-3.5 rounded-full flex items-center gap-3 shadow-xl shadow-slate-900/20 hover:shadow-amber-500/20 transition-all cursor-pointer transform hover:-translate-y-0.5 whitespace-nowrap"
         >
           <span>Talk to Our Experts</span>

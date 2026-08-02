@@ -1,6 +1,14 @@
 "use client";
 
 import { ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import jain from "../../public/logos/jain.webp"
+import manipal from "../../public/logos/manipal.webp"
+import alliance from "../../public/logos/alliance.png"
+import dayananda from "../../public/logos/DSU white.png"
+import amity from "../../public/logos/amity.png"
+import gla from "../../public/logos/gla.webp"
+//import yenepoya from "../../public/logos/yenepoya.webp"
 
 
 
@@ -16,6 +24,7 @@ const partnerUniversitiesData = [
   {
     id: "jain",
     name: "Jain University",
+    image:jain,
     shortName: "JAIN",
     badgeText: "DEEMED-TO-BE UNIVERSITY",
     location: "Bangalore, Karnataka",
@@ -35,6 +44,7 @@ const partnerUniversitiesData = [
   {
     id: "manipal",
     name: "Manipal University",
+    image:manipal,
     shortName: "MANIPAL",
     badgeText: "ACADEMY OF HIGHER EDUCATION",
     location: "Manipal, Karnataka",
@@ -53,6 +63,7 @@ const partnerUniversitiesData = [
   {
     id: "alliance",
     name: "Alliance University Online",
+    image:alliance,
     shortName: "ALLIANCE",
     badgeText: "UNIVERSITY ONLINE",
     location: "Bangalore, Karnataka",
@@ -70,6 +81,7 @@ const partnerUniversitiesData = [
   {
     id: "dayananda",
     name: "Dayananda Sagar University Online",
+    image:dayananda,
     shortName: "DAYANANDA SAGAR",
     badgeText: "UNIVERSITY ONLINE",
     location: "Bangalore, Karnataka",
@@ -88,6 +100,7 @@ const partnerUniversitiesData = [
   {
     id: "amity",
     name: "Amity University",
+    image:amity,
     shortName: "AMITY",
     badgeText: "UNIVERSITY ONLINE",
     location: "Noida / Global",
@@ -107,6 +120,7 @@ const partnerUniversitiesData = [
   {
     id: "gla",
     name: "GLA University",
+    image:gla,
     shortName: "GLA",
     badgeText: "UNIVERSITY ONLINE",
     location: "Mathura, Uttar Pradesh",
@@ -122,26 +136,11 @@ const partnerUniversitiesData = [
       "Delivers affordable, high-impact online degree programs with a strong focus on practical skills and placement readiness.",
     logoType: "gla",
   },
-  {
-    id: "yenepoya",
-    name: "Yenepoya University",
-    shortName: "YENEPOYA",
-    badgeText: "DEEMED TO BE UNIVERSITY",
-    location: "Mangalore, Karnataka",
-    accreditation: "NAAC A+ Graded | UGC Entitled",
-    courses: [
-      "Online MBA (Healthcare / FinTech)",
-      "Online MCA",
-      "Online BBA",
-      "Online BCA",
-    ],
-    description:
-      "Premier deemed-to-be university renowned for healthcare management, commerce, and IT online degree specializations.",
-    logoType: "yenepoya",
-  },
+ 
 ];
 
 export default function PartnerUniversities() {
+  const router = useRouter();
   return (
     <section
       id="partner-universities"
@@ -163,42 +162,22 @@ export default function PartnerUniversities() {
               // onClick={() => onSelectUniversity(uni)}
               className="bg-white rounded-2xl border border-gray-100 p-6 sm:p-8 flex flex-col items-center justify-between min-h-[150px] cursor-pointer group hover:-translate-y-1 hover:shadow-md transition-all duration-200"
             >
-              {/* <div className="flex-1 flex items-center justify-center">
-                <PartnerUniversityLogo type={uni.logoType} />
-              </div> */}
+              <div className="flex-1 flex items-center justify-center">
+                {/* <PartnerUniversityLogo type={uni.logoType} /> */}
+                 <img src={uni.image.src} />
+              </div>
 
               <div className="mt-4 pt-3 border-t border-gray-100 w-full flex items-center justify-between text-xs text-gray-500 font-medium group-hover:text-[#d19e4a]">
                 <span>{uni.name}</span>
 
-                <span className="flex items-center text-[11px] font-semibold text-[#d19e4a]">
+                {/* <span className="flex items-center text-[11px] font-semibold text-[#d19e4a]">
                   Explore
                   <ChevronRight className="w-3.5 h-3.5" />
-                </span>
+                </span> */}
               </div>
             </div>
           ))}
 
-          <div className="sm:col-span-2 lg:col-span-3 flex justify-center mt-2">
-            <div
-              // onClick={() => onSelectUniversity(partnerUniversitiesData[6])}
-              className="bg-white rounded-2xl border border-gray-100 p-6 sm:p-8 flex flex-col items-center justify-between min-h-[150px] w-full sm:w-1/2 lg:w-1/3 cursor-pointer group hover:-translate-y-1 hover:shadow-md transition-all duration-200"
-            >
-              {/* <div className="flex-1 flex items-center justify-center">
-                <PartnerUniversityLogo
-                  type={partnerUniversitiesData[6].logoType}
-                />
-              </div> */}
-
-              <div className="mt-4 pt-3 border-t border-gray-100 w-full flex items-center justify-between text-xs text-gray-500 font-medium group-hover:text-[#d19e4a]">
-                <span>{partnerUniversitiesData[6].name}</span>
-
-                <span className="flex items-center text-[11px] font-semibold text-[#d19e4a]">
-                  Explore
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="mt-10 sm:mt-12 pt-6 border-t border-[#f0e6cf] flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -207,8 +186,8 @@ export default function PartnerUniversities() {
           </span>
 
           <button
-            //onClick={() => onOpenEnquiryModal()}
-            className="bg-[#112143] hover:bg-[#1a305e] text-white font-semibold text-sm px-6 py-3 rounded-xl shadow-sm transition-colors"
+           onClick={() => router.push('/contact')}
+            className="bg-[#112143] hover:bg-[#1a305e] text-white font-semibold text-sm px-6 py-3 rounded-2 shadow-sm transition-colors"
           >
             Get Free University Counseling
           </button>

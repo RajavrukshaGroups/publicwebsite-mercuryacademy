@@ -44,14 +44,7 @@ export default function FeatureCards({
               with clarity.
             </p>
 
-            <button
-              type="button"
-              onClick={() => onOpenEnquiryModal('Online MBA')}
-              className="text-sm font-semibold text-[#d19e4a] hover:text-[#b37e2e] flex items-center gap-1 group cursor-pointer"
-            >
-              <span>Explore Top Courses</span>
-              <span className="transform group-hover:translate-x-1 transition-transform">→</span>
-            </button>
+           
           </div>
         </div>
 
@@ -74,14 +67,14 @@ export default function FeatureCards({
               enhance your opportunities.
             </p>
 
-            <button
+            {/* <button
               type="button"
               onClick={() => onOpenEnquiryModal('MCA / Executive Program')}
               className="text-sm font-semibold text-[#d19e4a] hover:text-[#b37e2e] flex items-center gap-1 group cursor-pointer"
             >
               <span>Get Customized Recommendation</span>
               <span className="transform group-hover:translate-x-1 transition-transform">→</span>
-            </button>
+            </button> */}
           </div>
 
           {/* Right Photo */}

@@ -50,7 +50,7 @@ export default function AboutIntro({
           </div>
 
           {/* Quick interactive action button */}
-          <div className="pt-4">
+          {/* <div className="pt-4">
             <button
               type="button"
               onClick={onOpenEnquiryModal}
@@ -59,7 +59,7 @@ export default function AboutIntro({
               <span>Explore Suitable Courses</span>
               <span className="text-[#d19e4a]">→</span>
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* Right Image & Overlapping Card Column */}
