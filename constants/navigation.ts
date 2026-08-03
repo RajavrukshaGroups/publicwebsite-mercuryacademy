@@ -16,8 +16,8 @@ export const mainNavigation = [
         href: "/success-stories",
     },
     {
-        label: "Resources",
-        href: "/resources",
+        label: "FAQ's",
+        href: "/faq",
     },
 ];
 
@@ -28,8 +28,8 @@ export const footerNavigation = {
             href: "/universities",
         },
         {
-            label: "Programs",
-            href: "/courses",
+            label: "FAQ'S",
+            href: "/faq",
         },
         {
             label: "About Mercury",

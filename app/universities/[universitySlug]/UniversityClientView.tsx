@@ -40,6 +40,7 @@ import {
   Building2,
   FileText
 } from 'lucide-react';
+import {useRouter} from 'next/navigation';
 
 import dayanandasagarImg from '../../../public/images/dayananda-bg-banner.png';
 
@@ -54,6 +55,7 @@ export default function UniversityClientView({
   logoUrl,
   bannerUrl
 }: UniversityClientViewProps) {
+  const router = useRouter();
   // Determine unique categories from courses for the tabs
   const courseCategories = ['ALL'];
   if (university.courses) {
@@ -169,6 +171,7 @@ export default function UniversityClientView({
                   Explore Programs
                 </a>
                 <button
+                  onClick={() => router.push('/contact')}
                   className="border-2 border-amber-400/80 hover:bg-amber-400/10 text-amber-300 font-bold text-sm px-6 py-3 rounded-md flex items-center gap-2 transition-all cursor-pointer"
                 >
                   <Phone className="w-4 h-4 text-amber-400" />
@@ -502,7 +505,9 @@ export default function UniversityClientView({
               <span>Career Support</span>
             </div> */}
           </div>
-          <button className="bg-[#FFB800] hover:bg-amber-400 text-slate-950 font-black text-sm px-8 py-3.5 rounded-md shadow-lg transition-all cursor-pointer whitespace-nowrap">
+          <button className="bg-[#FFB800] hover:bg-amber-400 text-slate-950 font-black text-sm px-8 py-3.5 rounded-md shadow-lg transition-all cursor-pointer whitespace-nowrap"
+            onClick={() => router.push('/contact')}
+          >
             Apply Now
           </button>
         </div>

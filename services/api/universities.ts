@@ -258,7 +258,7 @@ export function getUniversities() {
   return apiRequest<UniversityListResponse>(
     "/universities?limit=100&sortBy=displayOrder&sortOrder=asc",
     {
-      revalidate: 900,
+      revalidate: 0,
       tags: ["universities"],
     },
   );

@@ -186,7 +186,7 @@ useEffect(() => {
 
                     {universitiesOpen && (
                       <div className="absolute left-0 top-full z-50 pt-3">
-                        <div className="w-[330px] overflow-hidden rounded-2xl border border-brand-border bg-white p-2 shadow-2xl">
+                        <div className="w-[330px] overflow-hidden rounded-xm border border-brand-border bg-white p-2 shadow-2xl">
                           <div className="border-b border-brand-border px-4 py-3">
                             <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-gold">
                               Explore Universities
@@ -204,7 +204,7 @@ useEffect(() => {
                                   key={university._id}
                                   href={`/universities/${university.slug}`}
                                   onClick={() => setUniversitiesOpen(false)}
-                                  className="group flex items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold-soft hover:text-brand-gold"
+                                  className="group flex items-center justify-between  px-4 py-3 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold-soft hover:text-brand-gold"
                                 >
                                   <span>{university.name}</span>
 
@@ -227,7 +227,7 @@ useEffect(() => {
                             <Link
                               href="/universities"
                               onClick={() => setUniversitiesOpen(false)}
-                              className="flex min-h-11 items-center justify-center rounded-xl bg-brand-navy px-4 text-sm font-bold text-white transition-colors hover:bg-brand-navy-dark"
+                              className="flex min-h-11 items-center justify-center bg-brand-navy px-4 text-sm font-bold text-white transition-colors hover:bg-brand-navy-dark"
                             >
                               View All Universities
                             </Link>

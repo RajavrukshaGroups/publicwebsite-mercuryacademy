@@ -1,9 +1,20 @@
 "use client";
 
 //import { PARTNER_UNIVERSITIES } from "@/data/universities";
+import amity from "../../../public/logos/amity.png"
+import manipal from "../../../public/logos/manipal.webp"
+import jain from "../../../public/logos/jain.webp"
+import alliance from "../../../public/logos/alliance.png"
+import gla from "../../../public/logos/gla.webp"
+import dypatil from "../../../public/logos/dypatil.avif"
+import sharda from "../../../public/logos/sharda.png"
+import chandigarh from "../../../public/logos/chandigarh.webp"
+import { StaticImageData } from "next/image";
+
 interface University {
   id: string;
   name: string;
+  image:StaticImageData;
   location: string;
   accreditation: string;
   badgeBg: string;
@@ -18,6 +29,7 @@ const PARTNER_UNIVERSITIES: University[] = [
   {
     id: 'amity',
     name: 'AMITY UNIVERSITY',
+    image:amity,
     location: 'Noida / Online',
     accreditation: 'UGC-DEB Approved | NAAC A+',
     badgeBg: 'bg-indigo-900',
@@ -31,6 +43,7 @@ const PARTNER_UNIVERSITIES: University[] = [
   {
     id: 'manipal',
     name: 'MANIPAL UNIVERSITY JAIPUR',
+    image:manipal,
     location: 'Jaipur, Rajasthan',
     accreditation: 'UGC-DEB Approved | NAAC A+',
     badgeBg: 'bg-orange-800',
@@ -44,6 +57,7 @@ const PARTNER_UNIVERSITIES: University[] = [
   {
     id: 'jain',
     name: 'JAIN DEEMED-TO-BE UNIVERSITY',
+    image:jain,
     location: 'Bengaluru, Karnataka',
     accreditation: 'UGC-DEB Approved | NAAC A++',
     badgeBg: 'bg-slate-900',
@@ -57,6 +71,7 @@ const PARTNER_UNIVERSITIES: University[] = [
   {
     id: 'alliance',
     name: 'ALLIANCE UNIVERSITY',
+    image:alliance,
     location: 'Bengaluru, Karnataka',
     accreditation: 'UGC Approved | AACSB Member',
     badgeBg: 'bg-red-950',
@@ -70,6 +85,7 @@ const PARTNER_UNIVERSITIES: University[] = [
   {
     id: 'gla',
     name: 'GLA UNIVERSITY MATHURA',
+    image:gla,
     location: 'Mathura, UP',
     accreditation: 'UGC-DEB Approved | NAAC A+',
     badgeBg: 'bg-emerald-950',
@@ -83,6 +99,7 @@ const PARTNER_UNIVERSITIES: University[] = [
   {
     id: 'dypatil',
     name: 'DY PATIL UNIVERSITY',
+    image:dypatil,
     location: 'Navi Mumbai, Maharashtra',
     accreditation: 'UGC-DEB Approved | NAAC A++',
     badgeBg: 'bg-rose-950',
@@ -96,6 +113,7 @@ const PARTNER_UNIVERSITIES: University[] = [
   {
     id: 'sharda',
     name: 'SHARDA UNIVERSITY',
+    image:sharda,
     location: 'Greater Noida, UP',
     accreditation: 'UGC Approved | NAAC A+',
     badgeBg: 'bg-sky-950',
@@ -109,6 +127,7 @@ const PARTNER_UNIVERSITIES: University[] = [
   {
     id: 'chandigarh',
     name: 'CHANDIGARH UNIVERSITY',
+    image:chandigarh,
     location: 'Mohali, Punjab',
     accreditation: 'UGC-DEB Approved | NAAC A+',
     badgeBg: 'bg-red-900',
@@ -144,17 +163,17 @@ export default function PartnerUniversities() {
           >
             {/* Logo */}
             <div
-              className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg ${univ.logoBg} flex items-center justify-center text-white shrink-0 shadow-sm font-black text-[10px] tracking-tight group-hover:scale-105 transition-transform`}
+              //className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg ${univ.logoBg} flex items-center justify-center text-white shrink-0 shadow-sm font-black text-[10px] tracking-tight group-hover:scale-105 transition-transform`}
             >
-              {univ.logoText.slice(0, 3)}
+              <img src={univ.image.src} alt={univ.name} className="h-full w-auto" />
             </div>
 
             {/* University Name */}
-            <div className="flex flex-col text-center sm:text-left leading-tight">
+            {/* <div className="flex flex-col text-center sm:text-left leading-tight">
               <span className="font-extrabold text-[11px] sm:text-[12px] text-slate-900 tracking-tight uppercase line-clamp-2">
                 {univ.name}
               </span>
-            </div>
+            </div> */}
           </div>
         ))}
 
