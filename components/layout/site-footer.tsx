@@ -487,9 +487,9 @@ export default function SiteFooter() {
   });
 
   const popularCourses = [
-    { label: "Online MBA", href: "https://onlinemba.mercuryacademy.in" },
-    { label: "Online MCA", href: "/courses/online-mca" },
-    { label: "Online BBA", href: "/courses/online-bba" },
+    { label: "Online MBA", href: "/programs/online-mba" },
+    { label: "Online MCA", href: "/programs/online-mca" },
+    { label: "Online BBA", href: "/programs/online-bba" },
     // { label: "Online BCA", href: "/courses/online-bca" },
     // { label: "Online M.Com", href: "/courses/online-mcom" },
 ];

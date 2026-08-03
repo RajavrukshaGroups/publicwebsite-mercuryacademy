@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from "next/navigation"
+import UnknownImg from "../../public/images/unknown.jpg"
 import {
   Phone,
   ChevronDown,
@@ -157,7 +158,7 @@ const STORIES_DATA: SuccessStory[] = [
     newRole: 'Senior Data Scientist',
     company: 'Google',
     salaryHike: '+120% Hike',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    avatar: UnknownImg.src,
     location: 'Bengaluru, India',
     graduationYear: '2023',
     fullStory: {
@@ -187,7 +188,7 @@ const STORIES_DATA: SuccessStory[] = [
     newRole: 'HR Business Partner',
     company: 'Amazon',
     salaryHike: '+85% Hike',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+    avatar:UnknownImg.src,
     location: 'Hyderabad, India',
     graduationYear: '2023',
     fullStory: {
@@ -213,7 +214,7 @@ const STORIES_DATA: SuccessStory[] = [
     newRole: 'Digital Marketing Head',
     company: 'Unilever',
     salaryHike: '+150% Hike',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+    avatar: UnknownImg.src,
     location: 'Mumbai, India',
     graduationYear: '2022',
     fullStory: {
@@ -239,7 +240,7 @@ const STORIES_DATA: SuccessStory[] = [
     newRole: 'Investment Banker',
     company: 'Goldman Sachs',
     salaryHike: '+200% Hike',
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80',
+    avatar: UnknownImg.src,
     location: 'Mumbai, India',
     graduationYear: '2023',
     fullStory: {
@@ -265,7 +266,7 @@ const STORIES_DATA: SuccessStory[] = [
     newRole: 'Supply Chain Director',
     company: 'Flipkart',
     salaryHike: '+90% Hike',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+    avatar: UnknownImg.src,
     location: 'Bengaluru, India',
     graduationYear: '2023',
     fullStory: {
@@ -291,7 +292,7 @@ const STORIES_DATA: SuccessStory[] = [
     newRole: 'VP of Sales',
     company: 'Salesforce',
     salaryHike: '+140% Hike',
-    avatar: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=150&auto=format&fit=crop&q=80',
+    avatar: UnknownImg.src,
     location: 'Pune, India',
     graduationYear: '2022',
     fullStory: {
@@ -317,7 +318,7 @@ const STORIES_DATA: SuccessStory[] = [
     newRole: 'Lead AI Engineer',
     company: 'Microsoft',
     salaryHike: '+180% Hike',
-    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80',
+    avatar: UnknownImg.src,
     location: 'Hyderabad, India',
     graduationYear: '2024',
     fullStory: {
@@ -343,7 +344,7 @@ const STORIES_DATA: SuccessStory[] = [
     newRole: 'M&A Director',
     company: 'Deloitte',
     salaryHike: '+135% Hike',
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
+    avatar: UnknownImg.src,
     location: 'Bengaluru, India',
     graduationYear: '2023',
     fullStory: {
@@ -369,7 +370,7 @@ const STORIES_DATA: SuccessStory[] = [
     newRole: 'VP of Digital Transformation',
     company: 'Infosys',
     salaryHike: '+110% Hike',
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80',
+    avatar: UnknownImg.src,
     location: 'Chennai, India',
     graduationYear: '2023',
     fullStory: {
@@ -845,7 +846,7 @@ const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, onOpenCounsell
 
         <div className="relative aspect-video bg-black flex items-center justify-center group overflow-hidden">
           <Image 
-            src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1200&auto=format&fit=crop&q=85" 
+            src={UnknownImg.src}
             alt="Sarah Jenkins video testimonial" 
             className="w-full h-full object-cover" 
             width={1200} 
@@ -1292,7 +1293,7 @@ const VideoTestimonial: React.FC<VideoTestimonialProps> = ({ onPlayVideo }) => {
 
             <div className="flex items-center gap-4 pt-2 border-t border-white/10 max-w-md">
               <Image 
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80" 
+                src={UnknownImg.src}
                 alt="Sarah Jenkins" 
                 className="w-14 h-14 rounded-full object-cover border-2 border-amber-400 shadow-md shrink-0" 
                 width={56} 

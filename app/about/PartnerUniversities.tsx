@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation";
 import jain from "../../public/logos/jain.webp"
 import manipal from "../../public/logos/manipal.webp"
 import alliance from "../../public/logos/alliance.png"
-import dayananda from "../../public/logos/DSU white.png"
+//import dayananda from "../../public/logos/DSU white.png"
 import amity from "../../public/logos/amity.png"
 import gla from "../../public/logos/gla.webp"
+import dayananda from "../../public/logos/dayananda.webp"
 //import yenepoya from "../../public/logos/yenepoya.webp"
 
 
@@ -167,7 +168,7 @@ export default function PartnerUniversities() {
                  <img src={uni.image.src} />
               </div>
 
-              <div className="mt-4 pt-3 border-t border-gray-100 w-full flex items-center justify-between text-xs text-gray-500 font-medium group-hover:text-[#d19e4a]">
+              <div className="mt-4 text-center flex justify-center pt-3 border-t border-gray-100 w-full flex items-center justify-between text-xs text-gray-500 font-medium group-hover:text-[#d19e4a]">
                 <span>{uni.name}</span>
 
                 {/* <span className="flex items-center text-[11px] font-semibold text-[#d19e4a]">

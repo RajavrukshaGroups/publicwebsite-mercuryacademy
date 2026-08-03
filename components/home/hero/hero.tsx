@@ -48,6 +48,11 @@ import CareerChallengesSection from "./CareerChallengesSection"
 import DegreeTransformationSection from "./DegreeTransformationSection"
 import { DeviceMode } from './MercuryShowcase';
 
+
+import TestimonialImg1 from "../../../public/images/Testimonial-1.png"
+import TestimonialImg2 from "../../../public/images/Testimonial-2.png"
+import TestimonialImg3 from "../../../public/images/Testimonial-3.png"
+import TestimonialImg4 from "../../../public/images/Testimonial-4.png"
 // Data for Mercury Academy sections
 const MERCURY_FEATURES: FeatureItem[] = [
   {
@@ -95,11 +100,11 @@ const SUCCESS_STORIES: SuccessStory[] = [
     title: 'MBA Graduate',
     program: 'Executive MBA in Operations & Strategy',
     quote:
-      'Mercury Academy helped me complete my MBA while working full-time. The support and flexibility were exceptional!',
+      "Mercury Academy helped me complete my MBA while working full-time. The support and flexibility were exceptional!",
     avatarUrl:
-      'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=256&q=80',
+      TestimonialImg1.src,
     profileImageUrl:
-      'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=80',
+      TestimonialImg1.src,
   },
   {
     id: 'ananya-sharma',
@@ -109,9 +114,9 @@ const SUCCESS_STORIES: SuccessStory[] = [
     quote:
       'Transitioning into tech seemed intimidating until I enrolled. The UGC-approved degree and faculty mentorship landed me a Senior Analyst role!',
     avatarUrl:
-      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&q=80',
+      TestimonialImg2.src,
     profileImageUrl:
-      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
+      TestimonialImg2.src,
   },
   {
     id: 'vikram-rao',
@@ -121,9 +126,9 @@ const SUCCESS_STORIES: SuccessStory[] = [
     quote:
       'The career guidance and affordable fee structure made all the difference. I was promoted to Finance Lead within 6 months of graduation.',
     avatarUrl:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80',
+      TestimonialImg4.src,
     profileImageUrl:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
+      TestimonialImg4.src,
   },
   {
     id: 'priyanka-nair',
@@ -133,9 +138,9 @@ const SUCCESS_STORIES: SuccessStory[] = [
     quote:
       'Being able to study from anywhere in India without compromising on institutional accreditation gave my career a massive boost.',
     avatarUrl:
-      'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=256&q=80',
+      TestimonialImg3.src,
     profileImageUrl:
-      'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80',
+      TestimonialImg3.src,
   },
 ];
 
