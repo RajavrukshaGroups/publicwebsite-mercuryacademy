@@ -925,15 +925,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onReadStories, onExploreProgr
 const router = useRouter();
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-amber-50/20 to-white pt-12 pb-24 lg:pt-16 lg:pb-32 -mt-24.5"
-    style={{backgroundImage: `url(${BackgroundBanner.src})` , backgroundPosition: "center" , backgroundSize: "cover" , backgroundRepeat: "no-repeat", minHeight: "120vh" }}
+    <section className="relative overflow-hidden bg-gradient-to-b from-sky-50 via-amber-50/20 mx-auto max-w-7xl to-white pt-12 pb-24 lg:pt-16 lg:pb-32 -mt-24.5  aspect-[16/10] md:aspect-[16/9]"
+    style={{backgroundImage: `url(${BackgroundBanner.src})` , backgroundPosition: "center" , backgroundSize: "cover" , backgroundRepeat: "no-repeat" }}
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-amber-400/10 rounded-full blur-3xl -translate-y-1/2"></div>
         <div className="absolute top-1/4 left-10 w-[400px] h-[400px] bg-blue-400/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-19">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-19 hidden md:block">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           <div className="lg:col-span-7 space-y-6 text-left">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 shadow-sm">

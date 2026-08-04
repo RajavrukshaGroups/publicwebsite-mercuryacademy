@@ -11,7 +11,7 @@ interface HeroProps {
 
 export default function HeroSection({ onOpenEnquiryModal }: HeroProps) {
   return (
-    <section id="home" className="relative text-white overflow-hidden pt-10 sm:pt-14 pb-20 sm:pb-28 lg:pb-36 -mt-24.5"
+    <section id="home" className="relative text-white overflow-hidden pt-10 sm:pt-14 pb-20 sm:pb-28 lg:pb-36 -mt-24.5  aspect-[16/13.5] md:aspect-[16/9]"
 
       style={{ backgroundImage: `url(${BackgroundImg.src})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center" }}
     >
@@ -29,12 +29,12 @@ export default function HeroSection({ onOpenEnquiryModal }: HeroProps) {
           {/* Left Column: Headline and Pillars */}
           <div className="lg:col-span-7 flex flex-col items-start">
             {/* ABOUT MERCURY ACADEMY Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#1b3161]/80 border border-[#c49852]/50 text-[#e4bd74] text-[10px] sm:text-xs font-bold tracking-[0.18em] uppercase mb-6 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#1b3161]/80 border border-[#c49852]/50 text-[#e4bd74] text-[10px] text-xs font-bold tracking-[0.18em] uppercase mb-6 shadow-sm">
               <span>ABOUT MERCURY ACADEMY</span>
             </div>
 
             {/* Serif Headline */}
-            <h1 className="font-serif font-bold text-3xl sm:text-5xl lg:text-6xl leading-[1.12] sm:leading-[1.15] text-white">
+            <h1 className="font-serif font-bold text-xl sm:text-xl lg:text-6xl leading-[1.12] sm:leading-[1.15] text-white">
               We Are Here to <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#fbeaa6] via-[#deae5a] to-[#c78e38] italic">
                 Shape Your Future
@@ -48,7 +48,7 @@ export default function HeroSection({ onOpenEnquiryModal }: HeroProps) {
             </p>
 
             {/* CTA button for mobile/tablet convenience */}
-            <div className="mt-6 sm:mt-8 flex flex-wrap gap-4 lg:hidden">
+            <div className="mt-6 sm:mt-8 flex flex-wrap gap-4 lg:hidden hidden md:block">
               <button
                 type="button"
                 onClick={onOpenEnquiryModal}
@@ -63,7 +63,7 @@ export default function HeroSection({ onOpenEnquiryModal }: HeroProps) {
               {/* Trusted Guidance */}
               <div
                 onClick={onOpenEnquiryModal}
-                className="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left cursor-pointer group"
+                className="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left cursor-pointer group hidden md:block"
               >
                 <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/5 border border-[#d19e4a]/40 flex items-center justify-center text-[#e2b568] group-hover:bg-[#d19e4a]/20 transition-colors flex-shrink-0">
                   <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -81,7 +81,7 @@ export default function HeroSection({ onOpenEnquiryModal }: HeroProps) {
               {/* Top Universities */}
               <div
                 onClick={onOpenEnquiryModal}
-                className="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left cursor-pointer group"
+                className="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left cursor-pointer group hidden md:block"
               >
                 <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/5 border border-[#d19e4a]/40 flex items-center justify-center text-[#e2b568] group-hover:bg-[#d19e4a]/20 transition-colors flex-shrink-0">
                   <Building2 className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -99,7 +99,7 @@ export default function HeroSection({ onOpenEnquiryModal }: HeroProps) {
               {/* Career Focused */}
               <div
                 onClick={onOpenEnquiryModal}
-                className="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left cursor-pointer group"
+                className="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-3 text-center sm:text-left cursor-pointer group hidden md:block"
               >
                 <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/5 border border-[#d19e4a]/40 flex items-center justify-center text-[#e2b568] group-hover:bg-[#d19e4a]/20 transition-colors flex-shrink-0">
                   <Target className="w-5 h-5 sm:w-6 sm:h-6" />
