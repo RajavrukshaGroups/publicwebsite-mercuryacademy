@@ -418,13 +418,13 @@ useEffect(() => {
                 <span aria-hidden="true">›</span>
               </Link>
 
-              <Link
+              {/* <Link
                 href="/login"
                 onClick={closeMobileMenu}
                 className="mt-3 flex min-h-12 w-full items-center justify-center rounded-xl border border-brand-navy font-bold text-brand-navy"
               >
                 Sign In
-              </Link>
+              </Link> */}
 
               <div className="mt-5 space-y-3 text-sm text-muted-foreground">
                 <a href={phoneHref} className="flex items-center gap-3">

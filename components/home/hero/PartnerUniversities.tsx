@@ -6,7 +6,7 @@ import manipal from "../../../public/logos/manipal.webp"
 import jain from "../../../public/logos/jain.webp"
 import alliance from "../../../public/logos/alliance.png"
 import gla from "../../../public/logos/gla.webp"
-import dypatil from "../../../public/logos/dypatil.avif"
+import dypatil from "../../../public/logos/dypatil.webp"
 import sharda from "../../../public/logos/sharda.png"
 import chandigarh from "../../../public/logos/chandigarh.webp"
 import { StaticImageData } from "next/image";
