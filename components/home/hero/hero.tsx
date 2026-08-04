@@ -1,26 +1,3 @@
-// import { HeroStats } from "./hero-stats";
-// import HeroFeatureCard from "./hero-feature-card";
-// import PartnerUniversities from "./PartnerUniversities"
-// import CareerChallengesSection from "./CareerChallengesSection"
-// import DegreeTransformationSection from "./DegreeTransformationSection"
-
-// export function Hero() {
-//   return (
-//     <div className="bg-navy-pattern">
-//       {/* Hero Stats */}
-//       <HeroStats />
-
-//       {/* Hero Feature Card */}
-//       <HeroFeatureCard />
-
-//       <DegreeTransformationSection />
-//       <CareerChallengesSection />
-//       <PartnerUniversities />
-//     </div>
-//   );
-// }
-
-
 'use client';
 
 import React, { useState } from 'react';
@@ -180,7 +157,7 @@ export function Hero() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F2E9] flex flex-col justify-between selection:bg-amber-500 selection:text-white">
+    <div className="min-h-screen bg-[#F5F2E9] -mt-25 flex flex-col justify-between selection:bg-amber-500 selection:text-white">
       {/* Institutional Top Navigation */}
       <div className="bg-navy-pattern">
         <HeroStats />
