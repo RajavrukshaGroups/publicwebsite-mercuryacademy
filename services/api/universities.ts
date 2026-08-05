@@ -247,10 +247,17 @@ export function getMediaUrl(media?: MediaAsset | null): string | null {
     new URL(url);
     return url;
   } catch {
-    if (url.startsWith("/") || url.startsWith("data:")) {
+    if (url.startsWith("data:")) {
       return url;
     }
-    return "/" + url;
+    
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://mercuryapi.bouncyboxstudio.in/api/v1";
+    
+    if (url.startsWith("/")) {
+      return `${baseUrl.replace('/api/v1', '')}${url}`;
+    }
+    
+    return `${baseUrl}/media/${url}`;
   }
 }
 

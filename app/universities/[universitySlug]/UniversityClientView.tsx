@@ -335,9 +335,13 @@ export default function UniversityClientView({
             </div>
             </div>
             {logoUrl && (
+              <>
               <div className="absolute -bottom-4 sm:-bottom-5 md:-bottom-6 -left-4 sm:-left-5 md:-left-6 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-white p-1 shadow-2xl border-2 border-slate-200 flex items-center justify-center overflow-hidden">
                 <img src={logoUrl} alt={university.name} className="w-full h-full object-contain" />
+                
               </div>
+              {console.log("LOGO URL",logoUrl)}
+              </>
             )}
           </div>
         </div>

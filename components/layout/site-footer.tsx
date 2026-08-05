@@ -49,38 +49,38 @@ export default function SiteFooter() {
   });
 
   const popularCourses = [
-    { label: "Online MBA", href: "/universities/dayananda-sagar-university-online/courses/online-mba-it-systems-management" },
-    //{ label: "Online MCA", href: "/programs/online-mca" },
-    { label: "Online BBA", href: "/universities/dayananda-sagar-university-online/courses/online-bba-digital-marketing" },
-     { label: "Online BCA", href: "/universities/dayananda-sagar-university-online/courses/online-bca-machine-learning" },
-    // { label: "Online M.Com", href: "/courses/online-mcom" },
+    { label: "Dayananda Sagar", href: "/universities/dayananda-sagar-university-online" },
+    { label: "Alliance University", href: "/universities/alliance-university-online" },
+    { label: "Amity University", href: "/universities/amity-university-online" },
+    { label: "Manipal University", href: "/universities/manipal-university-jaipur-online" },
+    { label: "GLA University", href: "/universities/gla-university-online" },
 ];
 
   const socialLinks = [
     { 
       name: "facebook", 
-      href: "https://facebook.com/mercuryacademy",
+      href: "https://www.facebook.com/Mercuryacademydistanceeducation/",
       icon: FaFacebookF,
       color: "hover:text-[#1877f2]"
     },
     { 
       name: "instagram", 
-      href: "https://instagram.com/mercuryacademy",
+      href: "https://www.instagram.com/mercuryacademydistanceedu/",
       icon: FaInstagram,
       color: "hover:text-[#e4405f]"
     },
     { 
       name: "linkedin", 
-      href: "https://linkedin.com/company/mercuryacademy",
+      href: " https://www.linkedin.com/company/138554307/",
       icon: FaLinkedinIn,
       color: "hover:text-[#0a66c2]"
     },
-    { 
-      name: "youtube", 
-      href: "https://youtube.com/mercuryacademy",
-      icon: FaYoutube,
-      color: "hover:text-[#ff0000]"
-    },
+    // { 
+    //   name: "youtube", 
+    //   href: "https://youtube.com/mercuryacademy",
+    //   icon: FaYoutube,
+    //   color: "hover:text-[#ff0000]"
+    // },
   ];
 
   const phoneHref = `tel:${siteConfig.contact.phone.replace(/\s+/g, "")}`;
@@ -138,8 +138,8 @@ export default function SiteFooter() {
             </div>
           </div>
 
-          {/* Column 2: Explore Links (Col-span 3) */}
-          <div className="lg:col-span-3">
+          {/* Column 2: Explore Links (Col-span 2) */}
+          <div className="lg:col-span-2">
             <h3 className="font-serif text-xl font-bold text-white mb-2">Explore</h3>
             <div className="relative mt-2.5 flex items-center mb-6">
               <div className="h-0.5 w-14 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 rounded-full" />
@@ -171,9 +171,9 @@ export default function SiteFooter() {
             </ul>
           </div>
 
-          {/* Column 3: Popular Courses (Col-span 2) */}
-          <div className="lg:col-span-2">
-            <h3 className="font-serif text-xl font-bold text-white mb-2">Popular Courses</h3>
+          {/* Column 3: Popular Universities (Col-span 3) */}
+          <div className="lg:col-span-3">
+            <h3 className="font-serif text-xl font-bold text-white mb-2">Popular Universities</h3>
             {/* <div className="flex items-center mb-6">
               <div className="h-0.5 w-14 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full" />
               <div className="h-2 w-2 rounded-full bg-amber-300 -ml-6 shadow-[0_0_10px_rgba(234,179,8,0.8)]" />
