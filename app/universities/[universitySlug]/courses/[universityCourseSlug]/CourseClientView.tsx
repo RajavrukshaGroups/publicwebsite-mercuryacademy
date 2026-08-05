@@ -237,7 +237,8 @@ export default function CourseClientView(props: CourseClientViewProps) {
         )
       );
       
-      const res = await fetch('http://localhost:5000/api/v1/leads', {
+      //const res = await fetch('http://localhost:5000/api/v1/leads', {
+      const res = await fetch('https://mercuryapi.bouncyboxstudio.in/api/v1/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payloadData)

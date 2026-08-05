@@ -22,6 +22,27 @@ import dayananda from "../../public/logos/dayananda.webp"
 // }
 
 const partnerUniversitiesData = [
+    {
+    id: "dayananda",
+    name: "dayananda University",
+    image:dayananda,
+    shortName: "dayananda",
+    badgeText: "DEEMED-TO-BE UNIVERSITY",
+    location: "Bangalore, Karnataka",
+    accreditation: "NAAC A++ Graded | UGC Entitled",
+    courses: [
+      "Online MBA",
+      "Online MCA",
+      "Online BBA",
+      "Online BCA",
+      "Online B.Com",
+      "Online M.Com",
+    ],
+    description:
+      "Ranked among top universities in India, offering world-class online degree programs with industry-relevant curriculum and dedicated career support.",
+    logoType: "jain",
+  },
+
   {
     id: "jain",
     name: "Jain University",
@@ -118,25 +139,25 @@ const partnerUniversitiesData = [
       "India's first university to receive UGC entitlement for online degrees, providing global learning experiences and AI-enabled student support.",
     logoType: "amity",
   },
-  {
-    id: "gla",
-    name: "GLA University",
-    image:gla,
-    shortName: "GLA",
-    badgeText: "UNIVERSITY ONLINE",
-    location: "Mathura, Uttar Pradesh",
-    accreditation: "NAAC A+ Graded | UGC Approved",
-    courses: [
-      "Online MBA",
-      "Online MCA",
-      "Online BBA",
-      "Online BCA",
-      "Online B.Com",
-    ],
-    description:
-      "Delivers affordable, high-impact online degree programs with a strong focus on practical skills and placement readiness.",
-    logoType: "gla",
-  },
+  // {
+  //   id: "gla",
+  //   name: "GLA University",
+  //   image:gla,
+  //   shortName: "GLA",
+  //   badgeText: "UNIVERSITY ONLINE",
+  //   location: "Mathura, Uttar Pradesh",
+  //   accreditation: "NAAC A+ Graded | UGC Approved",
+  //   courses: [
+  //     "Online MBA",
+  //     "Online MCA",
+  //     "Online BBA",
+  //     "Online BCA",
+  //     "Online B.Com",
+  //   ],
+  //   description:
+  //     "Delivers affordable, high-impact online degree programs with a strong focus on practical skills and placement readiness.",
+  //   logoType: "gla",
+  // },
  
 ];
 

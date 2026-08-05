@@ -11,13 +11,13 @@ export const siteConfig = {
         "http://localhost:3000",
 
    contact: {
-  email: "info@mercuryacademy.in",
+  email: "counsellor@mercuryacademy.in",
   phone: "+91 72041 41825",
   whatsapp: "917204141825",
 },
 
     address: {
-        city: "Bengaluru",
+        city: "99/1 , 1st floor PWD road Ramarao layout , 1st cross Kathriguppe Banshankari 3 rd stage - Above central bank Bangalore -560085",
         state: "Karnataka",
         country: "India",
     },

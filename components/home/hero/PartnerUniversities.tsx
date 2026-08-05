@@ -10,6 +10,7 @@ import dypatil from "../../../public/logos/dypatil.webp"
 import sharda from "../../../public/logos/sharda.png"
 import chandigarh from "../../../public/logos/chandigarh.webp"
 import { StaticImageData } from "next/image";
+import dayananda from "../../../public/logos/dayananda.webp";
 
 interface University {
   id: string;
@@ -26,6 +27,34 @@ interface University {
   accentColor: string;
 }
 const PARTNER_UNIVERSITIES: University[] = [
+  {
+    id: 'dayananda',
+    name: 'DAYANANDA UNIVERSITY',
+    image:dayananda,
+    location: 'Mohali, Punjab',
+    accreditation: 'UGC-DEB Approved | NAAC A+',
+    badgeBg: 'bg-red-900',
+    logoBg: 'bg-red-600',
+    logoText: 'CU ONLINE',
+    accentColor: '#DC2626',
+    ranking: 'QS Asia Ranked #1 Private Varsity',
+    mode: 'Self-Paced Online',
+    popularCourses: ['MBA Logistics', 'MCA Full Stack', 'BBA Fintech', 'MA Journalism'],
+  },
+  {
+    id: 'alliance',
+    name: 'ALLIANCE UNIVERSITY',
+    image:alliance,
+    location: 'Bengaluru, Karnataka',
+    accreditation: 'UGC Approved | AACSB Member',
+    badgeBg: 'bg-red-950',
+    logoBg: 'bg-red-700',
+    logoText: 'ALLIANCE',
+    accentColor: '#B91C1C',
+    ranking: 'Top Business School in South India',
+    mode: 'Blended & Online',
+    popularCourses: ['Executive MBA', 'BBA Business Analytics', 'MBA HR & Finance'],
+  },
   {
     id: 'amity',
     name: 'AMITY UNIVERSITY',
@@ -54,48 +83,22 @@ const PARTNER_UNIVERSITIES: University[] = [
     mode: 'Online & Distance Learning',
     popularCourses: ['Online MBA', 'Online MCA', 'B.Com', 'BBA', 'M.Sc Data Science'],
   },
-  {
-    id: 'jain',
-    name: 'JAIN DEEMED-TO-BE UNIVERSITY',
-    image:jain,
-    location: 'Bengaluru, Karnataka',
-    accreditation: 'UGC-DEB Approved | NAAC A++',
-    badgeBg: 'bg-slate-900',
-    logoBg: 'bg-blue-600',
-    logoText: 'JAIN',
-    accentColor: '#1E40AF',
-    ranking: 'Category-1 Deemed University',
-    mode: 'Flexible Distance Mode',
-    popularCourses: ['MBA Dual Specialization', 'MCA AI & ML', 'BBA International Finance', 'BCA Coding'],
-  },
-  {
-    id: 'alliance',
-    name: 'ALLIANCE UNIVERSITY',
-    image:alliance,
-    location: 'Bengaluru, Karnataka',
-    accreditation: 'UGC Approved | AACSB Member',
-    badgeBg: 'bg-red-950',
-    logoBg: 'bg-red-700',
-    logoText: 'ALLIANCE',
-    accentColor: '#B91C1C',
-    ranking: 'Top Business School in South India',
-    mode: 'Blended & Online',
-    popularCourses: ['Executive MBA', 'BBA Business Analytics', 'MBA HR & Finance'],
-  },
-  {
-    id: 'gla',
-    name: 'GLA UNIVERSITY MATHURA',
-    image:gla,
-    location: 'Mathura, UP',
-    accreditation: 'UGC-DEB Approved | NAAC A+',
-    badgeBg: 'bg-emerald-950',
-    logoBg: 'bg-emerald-600',
-    logoText: 'GLA',
-    accentColor: '#047857',
-    ranking: 'Leading Tech & Mgmt Institution',
-    mode: 'Distance & Online Education',
-    popularCourses: ['MBA Marketing', 'MCA Cloud Computing', 'BBA', 'B.Com General'],
-  },
+ 
+  
+  // {
+  //   id: 'gla',
+  //   name: 'GLA UNIVERSITY MATHURA',
+  //   image:gla,
+  //   location: 'Mathura, UP',
+  //   accreditation: 'UGC-DEB Approved | NAAC A+',
+  //   badgeBg: 'bg-emerald-950',
+  //   logoBg: 'bg-emerald-600',
+  //   logoText: 'GLA',
+  //   accentColor: '#047857',
+  //   ranking: 'Leading Tech & Mgmt Institution',
+  //   mode: 'Distance & Online Education',
+  //   popularCourses: ['MBA Marketing', 'MCA Cloud Computing', 'BBA', 'B.Com General'],
+  // },
   {
     id: 'dypatil',
     name: 'DY PATIL UNIVERSITY',
@@ -124,6 +127,20 @@ const PARTNER_UNIVERSITIES: University[] = [
     mode: 'Distance & Live Sessions',
     popularCourses: ['Online MBA', 'BBA', 'MA English', 'MA Economics', 'M.Com'],
   },
+   {
+    id: 'jain',
+    name: 'JAIN DEEMED-TO-BE UNIVERSITY',
+    image:jain,
+    location: 'Bengaluru, Karnataka',
+    accreditation: 'UGC-DEB Approved | NAAC A++',
+    badgeBg: 'bg-slate-900',
+    logoBg: 'bg-blue-600',
+    logoText: 'JAIN',
+    accentColor: '#1E40AF',
+    ranking: 'Category-1 Deemed University',
+    mode: 'Flexible Distance Mode',
+    popularCourses: ['MBA Dual Specialization', 'MCA AI & ML', 'BBA International Finance', 'BCA Coding'],
+  },
   {
     id: 'chandigarh',
     name: 'CHANDIGARH UNIVERSITY',
@@ -138,6 +155,8 @@ const PARTNER_UNIVERSITIES: University[] = [
     mode: 'Self-Paced Online',
     popularCourses: ['MBA Logistics', 'MCA Full Stack', 'BBA Fintech', 'MA Journalism'],
   },
+  
+   
 ];
 
 export default function PartnerUniversities() {

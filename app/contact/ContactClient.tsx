@@ -110,8 +110,8 @@ export default function ContactClient() {
               </div>
               <h3 className="font-bold text-gray-900 text-lg mb-2">Email Us</h3>
               <p className="text-gray-500 text-sm mb-4">We usually respond within 24 hours</p>
-              <a href="mailto:info@dsuonline.com" className="font-bold text-[#0a1835] text-lg hover:text-[#ca9a3e] transition-colors">
-                info@dsuonline.com
+              <a href="mailto:counsellor@mercuryacademy.in" className="font-bold text-[#0a1835] text-lg hover:text-[#ca9a3e] transition-colors">
+                counsellor@mercuryacademy.in
               </a>
             </div>
 
@@ -122,8 +122,9 @@ export default function ContactClient() {
               </div>
               <h3 className="font-bold text-gray-900 text-lg mb-2">Visit Us</h3>
               <p className="text-gray-500 text-sm mb-4">Dayananda Sagar University Campus</p>
-              <span className="font-bold text-[#0a1835] text-sm leading-snug max-w-[200px]">
-                Devarakaggalahalli, Harohalli, Kanakapura Road, Bengaluru
+              <span className="font-bold text-[#0a1835] text-sm leading-snug max-w-[400px]">
+                99/1 , 1st floor PWD road Ramarao layout , 1st cross Kathriguppe Banshankari 3 rd stage - Above central bank 
+                Bangalore -560085
               </span>
             </div>
           </div>
@@ -334,7 +335,7 @@ export default function ContactClient() {
                   <Clock className="w-4 h-4" />
                   <span>Monday - Saturday</span>
                 </div>
-                <div className="text-white font-semibold">09:00 AM - 06:00 PM</div>
+                <div className="text-white font-semibold">09:30 AM - 06:30 PM</div>
               </div>
             </div>
           </div>
