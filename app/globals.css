@@ -435,3 +435,41 @@
   background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+.bg-gold-button {
+  background: linear-gradient(135deg, #D49E31 0%, #C48E28 50%, #A37119 100%);
+  border: 1px solid rgba(196, 142, 40, 0.5);
+  box-shadow: 0 4px 16px rgba(212, 158, 49, 0.28);
+  transition: all 0.3s ease;
+  color: #0F172A;
+}
+
+.bg-gold-button:hover {
+  background: linear-gradient(135deg, #E5AD3C 0%, #D49E31 50%, #B57F1C 100%);
+  box-shadow: 0 6px 22px rgba(212, 158, 49, 0.42);
+}
+
+.card-gold-border {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid rgba(212, 158, 49, 0.35);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(212, 158, 49, 0.08);
+  transition: all 0.3s ease;
+}
+
+.card-gold-border:hover {
+  border-color: rgba(212, 158, 49, 0.65);
+  box-shadow: 0 10px 28px -4px rgba(212, 158, 49, 0.16), 0 4px 10px -2px rgba(15, 23, 42, 0.06);
+}
+
+.gold-icon-badge {
+  background: radial-gradient(circle at 30% 30%, rgba(243, 201, 105, 0.28), rgba(212, 158, 49, 0.12));
+  border: 1.5px solid rgba(212, 158, 49, 0.45);
+  box-shadow: inset 0 0 8px rgba(226, 176, 74, 0.15);
+}
+
+.gold-ribbon-badge {
+  background: linear-gradient(180deg, #F3C969 0%, #D49E31 70%, #A37119 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+  box-shadow: 0 4px 12px rgba(212, 158, 49, 0.3);
+}
